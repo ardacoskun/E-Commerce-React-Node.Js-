@@ -1,8 +1,15 @@
 import React from "react";
+import Footer from "./components/Footer";
+import NavbarItem from "./components/NavbarItem";
+import { Container } from "react-bootstrap";
 const App = () => {
   return (
     <>
-      <h1>OSF Digital</h1>
+      <NavbarItem />
+      <Container>
+        <h1>OSF Digital</h1>
+      </Container>
+      <Footer />
     </>
   );
 };
