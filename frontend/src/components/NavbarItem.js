@@ -11,10 +11,14 @@ const NavbarItem = () => {
           <Navbar.Collapse className="justify-content-end">
             <Nav className="ml-auto">
               <NavDropdown title="Categories" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Men</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Women</NavDropdown.Item>
+                <NavDropdown.Item href="/categories/mens">
+                  Mens
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/categories/womens">
+                  Womens
+                </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link href="/login">
+              <Nav.Link href="/signin">
                 <i className="fas fa-user"></i> Sign In
               </Nav.Link>
               <Nav.Link href="/wishlist">
