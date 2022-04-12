@@ -1,32 +1,41 @@
 import React from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 const NavbarItem = () => {
   return (
     <header>
       <Navbar bg="primary" variant="dark" expand="lg" collapseOnSelect>
         <Container>
-          <Navbar.Brand href="/">OSF Digital</Navbar.Brand>
+          <LinkContainer to="/">
+            <Navbar.Brand>OSF Digital</Navbar.Brand>
+          </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse className="justify-content-end">
             <Nav className="ml-auto">
               <NavDropdown title="Categories" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/categories/mens">
-                  Mens
-                </NavDropdown.Item>
-                <NavDropdown.Item href="/categories/womens">
-                  Womens
-                </NavDropdown.Item>
+                <LinkContainer to="/categories/mens">
+                  <NavDropdown.Item>Mens</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/categories/womens">
+                  <NavDropdown.Item>Womens</NavDropdown.Item>
+                </LinkContainer>
               </NavDropdown>
-              <Nav.Link href="/signin">
-                <i className="fas fa-user"></i> Sign In
-              </Nav.Link>
-              <Nav.Link href="/wishlist">
-                <i className="fas fa-heart"></i> Wishlist
-              </Nav.Link>
-              <Nav.Link href="/cart">
-                <i className="fas fa-shopping-cart"></i> Cart
-              </Nav.Link>
+              <LinkContainer to="/signin">
+                <Nav.Link>
+                  <i className="fas fa-user"></i> Sign In
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/wishlist">
+                <Nav.Link>
+                  <i className="fas fa-heart"></i> Wishlist
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/cart">
+                <Nav.Link>
+                  <i className="fas fa-shopping-cart"></i> Cart
+                </Nav.Link>
+              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
         </Container>
