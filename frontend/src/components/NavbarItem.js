@@ -3,7 +3,7 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 
 const NavbarItem = () => {
   return (
-    <navbar>
+    <header>
       <Navbar bg="primary" variant="dark" expand="lg" collapseOnSelect>
         <Container>
           <Navbar.Brand href="/">OSF Digital</Navbar.Brand>
@@ -31,7 +31,7 @@ const NavbarItem = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    </navbar>
+    </header>
   );
 };
 
