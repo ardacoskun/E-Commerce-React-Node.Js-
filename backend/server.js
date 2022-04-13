@@ -1,21 +1,14 @@
 const express = require("express");
-const axios = require("axios");
 
 const app = express();
 
-const baseUrl = "https://osf-digital-backend-academy.herokuapp.com/api/";
-const secretKey =
-  "$2a$08$VOYiDPDRsbjFt2bg/lKAm.piUbWL/0F.ts09ZaYht7Nx0m8Jp.Cv6";
+const categoryRoutes = require("./routes/categoryRoutes");
 
 app.get("/", (req, res) => {
   res.send("HELLO");
 });
 
-app.get("/categories", async (req, res) => {
-  axios
-    .get(`${baseUrl}categories?secretKey=${secretKey}`)
-    .then((response) => res.json(response.data));
-});
+app.use("/categories", categoryRoutes);
 
 const PORT = 5000;
 app.listen(PORT, () => {
