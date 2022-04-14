@@ -43,4 +43,22 @@ const getSubCategories = async (req, res) => {
   }
 };
 
-module.exports = { getAllCategories, getParentCategories, getSubCategories };
+//GET PRODUCTS
+const getProducts = async (req, res) => {
+  const { productCategoryId } = req.params;
+  try {
+    const response = await axios.get(
+      `${baseUrl}products/product_search?primary_category_id=${productCategoryId}&secretKey=${secretKey}`
+    );
+    return await res.json(response.data);
+  } catch (error) {
+    return res.json(error);
+  }
+};
+
+module.exports = {
+  getAllCategories,
+  getParentCategories,
+  getSubCategories,
+  getProducts,
+};
