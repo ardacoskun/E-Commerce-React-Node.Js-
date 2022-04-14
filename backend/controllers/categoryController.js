@@ -1,14 +1,10 @@
 const axios = require("axios");
 
-const baseUrl = "https://osf-digital-backend-academy.herokuapp.com/api/";
-const secretKey =
-  "$2a$08$VOYiDPDRsbjFt2bg/lKAm.piUbWL/0F.ts09ZaYht7Nx0m8Jp.Cv6";
-
 //GET ALL CATEGORIES
 const getAllCategories = async (req, res) => {
   try {
     const response = await axios.get(
-      `${baseUrl}categories?secretKey=${secretKey}`
+      `${process.env.BASE_URL}categories?secretKey=${process.env.SECRET_KEY}`
     );
 
     return await res.json(response.data);
@@ -22,7 +18,7 @@ const getParentCategories = async (req, res) => {
   const { parentId } = req.params;
   try {
     const response = await axios.get(
-      `${baseUrl}categories/parent/${parentId}?secretKey=${secretKey}`
+      `${process.env.BASE_URL}categories/parent/${parentId}?secretKey=${process.env.SECRET_KEY}`
     );
     return await res.json(response.data);
   } catch (error) {
@@ -35,7 +31,7 @@ const getSubCategories = async (req, res) => {
   const { parentId, subcategoryId } = req.params;
   try {
     const response = await axios.get(
-      `${baseUrl}categories/parent/${parentId}-${subcategoryId}?secretKey=${secretKey}`
+      `${process.env.BASE_URL}categories/parent/${parentId}-${subcategoryId}?secretKey=${process.env.SECRET_KEY}`
     );
     return await res.json(response.data);
   } catch (error) {
@@ -48,7 +44,7 @@ const getProducts = async (req, res) => {
   const { productCategoryId } = req.params;
   try {
     const response = await axios.get(
-      `${baseUrl}products/product_search?primary_category_id=${productCategoryId}&secretKey=${secretKey}`
+      `${process.env.BASE_URL}products/product_search?primary_category_id=${productCategoryId}&secretKey=${process.env.SECRET_KEY}`
     );
     return await res.json(response.data);
   } catch (error) {
@@ -61,7 +57,7 @@ const getSingleProduct = async (req, res) => {
   const { productId } = req.params;
   try {
     const response = await axios.get(
-      `${baseUrl}products/product_search?id=${productId}&secretKey=${secretKey}`
+      `${process.env.BASE_URL}products/product_search?id=${productId}&secretKey=${process.env.SECRET_KEY}`
     );
 
     return await res.json(response.data);
