@@ -18,4 +18,10 @@ router.get(
   categoryController.getProducts
 );
 
+//Get Single Product
+router.get(
+  "/:parentId/:subcategoryId/:productCategoryId/:productId",
+  categoryController.getSingleProduct
+);
+
 module.exports = router;

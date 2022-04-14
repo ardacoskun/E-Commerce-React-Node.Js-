@@ -56,9 +56,24 @@ const getProducts = async (req, res) => {
   }
 };
 
+//GET SINGLE PRODUCT
+const getSingleProduct = async (req, res) => {
+  const { productId } = req.params;
+  try {
+    const response = await axios.get(
+      `${baseUrl}products/product_search?id=${productId}&secretKey=${secretKey}`
+    );
+
+    return await res.json(response.data);
+  } catch (error) {
+    return res.json(error);
+  }
+};
+
 module.exports = {
   getAllCategories,
   getParentCategories,
   getSubCategories,
   getProducts,
+  getSingleProduct,
 };

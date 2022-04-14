@@ -1,8 +1,11 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Products = ({ product }) => {
+  const { parentId, subcategoryId, productCategoryId } = useParams();
+  const navigate = useNavigate();
   return (
     <Card className="my-3 p-3 rounded">
       <Link to="/">
@@ -23,6 +26,15 @@ const Products = ({ product }) => {
         <Card.Text as="h4">
           {product.price} {product.currency}
         </Card.Text>
+        <Button
+          onClick={() =>
+            navigate(
+              `/categories/${parentId}/${subcategoryId}/${productCategoryId}/${product.id}`
+            )
+          }
+        >
+          More Info
+        </Button>
       </Card.Body>
     </Card>
   );
