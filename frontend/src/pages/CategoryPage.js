@@ -2,16 +2,18 @@ import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import axios from "axios";
 import ParentCategories from "../components/ParentCategories";
+import { useParams } from "react-router-dom";
 
 const CategoryPage = () => {
   const [categories, setCategories] = useState([]);
+  const { parentId } = useParams();
 
   useEffect(() => {
     getCategories();
   }, []);
 
   const getCategories = async () => {
-    const { data } = await axios.get("/categories");
+    const { data } = await axios.get(`/categories/${parentId}`);
     setCategories(data);
   };
 

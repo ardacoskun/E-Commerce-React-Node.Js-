@@ -9,7 +9,8 @@ const App = () => {
     <>
       <NavbarItem />
       <Routes>
-        <Route path="/" element={<CategoryPage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/categories/:parentId" element={<CategoryPage />} />
       </Routes>
       <Footer />
     </>

@@ -17,4 +17,17 @@ const getAllCategories = async (req, res) => {
   }
 };
 
-module.exports = { getAllCategories };
+//GET PARENT CATEGORIES
+const getParentCategories = async (req, res) => {
+  const { parentId } = req.params;
+  try {
+    const response = await axios.get(
+      `${baseUrl}categories/parent/${parentId}?secretKey=${secretKey}`
+    );
+    return await res.json(response.data);
+  } catch (error) {
+    //return res.json(error);
+  }
+};
+
+module.exports = { getAllCategories, getParentCategories };
