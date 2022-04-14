@@ -10,7 +10,7 @@ const CategoryPage = () => {
 
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [parentId]);
 
   const getCategories = async () => {
     const { data } = await axios.get(`/categories/${parentId}`);
