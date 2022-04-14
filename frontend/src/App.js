@@ -4,14 +4,17 @@ import { Routes, Route } from "react-router-dom";
 import NavbarItem from "./components/NavbarItem";
 import HomePage from "./pages/HomePage";
 import CategoryPage from "./pages/CategoryPage";
+import { Container } from "react-bootstrap";
 const App = () => {
   return (
     <>
       <NavbarItem />
+
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/categories/:parentId" element={<CategoryPage />} />
       </Routes>
+
       <Footer />
     </>
   );
