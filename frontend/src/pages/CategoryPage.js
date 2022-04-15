@@ -27,7 +27,9 @@ const CategoryPage = () => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>{rootCategories.name}</h1>
+      <h1 style={{ textAlign: "center" }}>
+        {rootCategories.name.toUpperCase()}
+      </h1>
       <p style={{ textAlign: "center" }}>{rootCategories.page_description}</p>
       <Col>
         <ul>

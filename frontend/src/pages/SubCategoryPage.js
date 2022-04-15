@@ -20,12 +20,7 @@ const SubCategoryPage = () => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Mens</h1>
-      <p style={{ textAlign: "center" }}>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur ab
-        nam quis quisquam dolorem distinctio animi, itaque temporibus nisi
-        earum?
-      </p>
+      <h1 style={{ textAlign: "center" }}>{subcategoryId.toUpperCase()}</h1>
       <Col>
         {subCategories.map((subCategory) => (
           <Subcategories key={subCategory?._id} subCategory={subCategory} />
