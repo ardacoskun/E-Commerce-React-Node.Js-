@@ -18,7 +18,7 @@ const getRootCategories = async (req, res) => {
   const { parentId } = req.params;
   try {
     const response = await axios.get(
-      `${baseUrl}categories/${parentId}?secretKey=${secretKey}`
+      `${process.env.BASE_URL}categories/${parentId}?secretKey=${process.env.SECRET_KEY}`
     );
 
     return await res.json(response.data);

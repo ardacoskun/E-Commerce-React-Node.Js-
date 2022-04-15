@@ -5,29 +5,33 @@ import ParentCategories from "../components/ParentCategories";
 import { useParams } from "react-router-dom";
 
 const CategoryPage = () => {
-  const [categories, setCategories] = useState([]);
+  const [rootCategories, setRootCategories] = useState([]);
+  const [parentCategories, setParentCategories] = useState([]);
   const { parentId } = useParams();
 
   useEffect(() => {
     getCategories();
   }, [parentId]);
 
-  const getCategories = async () => {
-    const { data } = await axios.get(`/${parentId}`);
-    setCategories(data);
+  const getCategories = () => {
+    const getRootCategories = axios.get(`/categories/${parentId}`);
+    const getParentCategories = axios.get(`/${parentId}`);
+
+    axios.all([getRootCategories, getParentCategories]).then(
+      axios.spread((...allData) => {
+        setRootCategories(allData[0].data);
+        setParentCategories(allData[1].data);
+      })
+    );
   };
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Mens</h1>
-      <p style={{ textAlign: "center" }}>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur ab
-        nam quis quisquam dolorem distinctio animi, itaque temporibus nisi
-        earum?
-      </p>
+      <h1 style={{ textAlign: "center" }}>{rootCategories.name}</h1>
+      <p style={{ textAlign: "center" }}>{rootCategories.page_description}</p>
       <Col>
         <ul>
-          {categories.map((category) => (
+          {parentCategories.map((category) => (
             <ParentCategories key={category?.name} category={category} />
           ))}
         </ul>
