@@ -8,10 +8,12 @@ import CategoryPage from "./pages/CategoryPage";
 import SubCategoryPage from "./pages/SubCategoryPage";
 import ProductsPage from "./pages/ProductsPage";
 import SingleProductPage from "./pages/SingleProductPage";
+import BreadCrumbs from "./components/BreadCrumbs";
 const App = () => {
   return (
     <>
       <NavbarItem />
+      <BreadCrumbs />
       <main>
         <Container>
           <Routes>
