@@ -6,6 +6,9 @@ const categoryController = require("../controllers/categoryController");
 //Get All Categories
 router.get("/", categoryController.getAllCategories);
 
+//Get Root Categories
+router.get("/categories/:parentId", categoryController.getRootCategories);
+
 //Get Parent Categories
 router.get("/:parentId", categoryController.getParentCategories);
 

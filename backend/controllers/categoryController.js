@@ -13,6 +13,20 @@ const getAllCategories = async (req, res) => {
   }
 };
 
+//GET ROOT CATEGORIES
+const getRootCategories = async (req, res) => {
+  const { parentId } = req.params;
+  try {
+    const response = await axios.get(
+      `${baseUrl}categories/${parentId}?secretKey=${secretKey}`
+    );
+
+    return await res.json(response.data);
+  } catch (error) {
+    return res.json(error);
+  }
+};
+
 //GET PARENT CATEGORIES
 const getParentCategories = async (req, res) => {
   const { parentId } = req.params;
@@ -69,6 +83,7 @@ const getSingleProduct = async (req, res) => {
 module.exports = {
   getAllCategories,
   getParentCategories,
+  getRootCategories,
   getSubCategories,
   getProducts,
   getSingleProduct,
