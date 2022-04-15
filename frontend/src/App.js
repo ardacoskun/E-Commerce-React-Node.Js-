@@ -18,17 +18,17 @@ const App = () => {
         <Container>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/categories/:parentId" element={<CategoryPage />} />
+            <Route path="/:parentId" element={<CategoryPage />} />
             <Route
-              path="/categories/:parentId/:subcategoryId"
+              path="/:parentId/:subcategoryId"
               element={<SubCategoryPage />}
             />
             <Route
-              path="/categories/:parentId/:subcategoryId/:productCategoryId"
+              path="/:parentId/:subcategoryId/:productCategoryId"
               element={<ProductsPage />}
             />
             <Route
-              path="/categories/:parentId/:subcategoryId/:productCategoryId/:productId"
+              path="/:parentId/:subcategoryId/:productCategoryId/:productId"
               element={<SingleProductPage />}
             />
           </Routes>

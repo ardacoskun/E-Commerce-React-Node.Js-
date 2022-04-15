@@ -13,9 +13,7 @@ const SubCategoryPage = () => {
   }, []);
 
   const getSubCategories = async () => {
-    const { data } = await axios.get(
-      `/categories/${parentId}/${subcategoryId}`
-    );
+    const { data } = await axios.get(`/${parentId}/${subcategoryId}`);
 
     setSubCategories(data);
   };

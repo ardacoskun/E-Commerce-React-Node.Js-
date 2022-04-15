@@ -7,11 +7,11 @@ const app = express();
 
 const categoryRoutes = require("./routes/categoryRoutes");
 
-app.get("/", (req, res) => {
-  res.send("HELLO");
-});
+// app.get("/", (req, res) => {
+//   res.send("working");
+// });
 
-app.use("/categories", categoryRoutes);
+app.use("/", categoryRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

@@ -14,7 +14,7 @@ const ProductsPage = () => {
 
   const getProducts = async () => {
     const { data } = await axios.get(
-      `/categories/${parentId}/${subcategoryId}/${productCategoryId}`
+      `/${parentId}/${subcategoryId}/${productCategoryId}`
     );
     setProducts(data);
   };

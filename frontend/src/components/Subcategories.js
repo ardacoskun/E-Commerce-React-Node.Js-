@@ -18,9 +18,7 @@ const SubCategoryItem = ({ subCategory }) => {
           <Button
             variant="primary"
             onClick={() =>
-              navigate(
-                `/categories/${parentId}/${subcategoryId}/${subCategory.id}`
-              )
+              navigate(`/${parentId}/${subcategoryId}/${subCategory.id}`)
             }
           >
             View Products

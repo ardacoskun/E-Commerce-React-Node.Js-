@@ -13,7 +13,7 @@ const CategoryPage = () => {
   }, [parentId]);
 
   const getCategories = async () => {
-    const { data } = await axios.get(`/categories/${parentId}`);
+    const { data } = await axios.get(`/${parentId}`);
     setCategories(data);
   };
 

@@ -17,7 +17,7 @@ const ParentCategories = ({ category }) => {
           <Button
             variant="primary"
             onClick={() =>
-              navigate(`/categories/${parentId}/${category.name.toLowerCase()}`)
+              navigate(`/${parentId}/${category.name.toLowerCase()}`)
             }
           >
             View Products

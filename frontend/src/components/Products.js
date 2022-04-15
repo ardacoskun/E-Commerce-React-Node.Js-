@@ -29,7 +29,7 @@ const Products = ({ product }) => {
         <Button
           onClick={() =>
             navigate(
-              `/categories/${parentId}/${subcategoryId}/${productCategoryId}/${product.id}`
+              `/${parentId}/${subcategoryId}/${productCategoryId}/${product.id}`
             )
           }
         >
