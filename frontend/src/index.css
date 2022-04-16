@@ -3,3 +3,13 @@ main {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 600px;
+  margin: auto;
+  border: 1px solid blue;
+  padding: 50px;
+}

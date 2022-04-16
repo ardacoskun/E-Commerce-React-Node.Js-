@@ -9,6 +9,7 @@ import SubCategoryPage from "./pages/SubCategoryPage";
 import ProductsPage from "./pages/ProductsPage";
 import SingleProductPage from "./pages/SingleProductPage";
 import BreadCrumbs from "./components/BreadCrumbs";
+import RegisterPage from "./pages/RegisterPage";
 const App = () => {
   return (
     <>
@@ -31,6 +32,7 @@ const App = () => {
               path="/:parentId/:subcategoryId/:productCategoryId/:productId"
               element={<SingleProductPage />}
             />
+            <Route path="/signin" element={<RegisterPage />} />
           </Routes>
         </Container>
       </main>
