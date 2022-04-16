@@ -11,23 +11,61 @@ const initialState = {
 const RegisterPage = () => {
   const [values, setValues] = useState(initialState);
 
-  return (
-    <Form className="register-form">
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
-      </Form.Group>
+  const { isAlert, isLoading, displayAlert } = useAppContext();
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" />
-      </Form.Group>
+  const checkMember = () => {};
+
+  const handleChange = (e) => {};
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  return (
+    <Form className="register-form" onSubmit={handleSubmit}>
+      <h4 className="register-header">
+        {values.isMember ? "Sign In" : "Register"}
+      </h4>
+
+      {isAlert && <Alerts />}
+
+      {values.isMember && (
+        <FormGroup
+          type="text"
+          name="name"
+          value={values.name}
+          handleChange={handleChange}
+        />
+      )}
+      <FormGroup
+        type="email"
+        name="email"
+        value={values.email}
+        handleChange={handleChange}
+      />
+      <FormGroup
+        type="password"
+        name="password"
+        value={values.password}
+        handleChange={handleChange}
+      />
       <Button variant="primary" type="submit">
-        Register
+        {values.isMember ? "Sign In" : "Register"}
       </Button>
-      <Form.Text className="text-muted">
-        We'll never share your email with anyone else.
-      </Form.Text>
+      <div className="form-undertext">
+        {values.isMember ? (
+          <Form.Text className="text-muted">
+            Don't have an account yet ?
+          </Form.Text>
+        ) : (
+          <Form.Text className="text-muted">
+            Already have an account ?
+          </Form.Text>
+        )}
+        <Form.Text onClick={checkMember} className="check-member">
+          {values.isMember ? "Register" : "Sign In"}
+        </Form.Text>
+      </div>
     </Form>
   );
 };
