@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 
+const initialState = {
+  name: "",
+  email: "",
+  password: "",
+  isMember: false,
+};
+
 const RegisterPage = () => {
+  const [values, setValues] = useState(initialState);
+
   return (
     <Form className="register-form">
       <Form.Group className="mb-3" controlId="formBasicEmail">
