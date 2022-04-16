@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useReducer } from "react";
+import { DISPLAY_ALERT } from "./actions";
+import { CLEAR_ALERT } from "./actions";
 
 import reducer from "./reducer";
 
