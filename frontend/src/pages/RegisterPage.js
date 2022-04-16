@@ -13,12 +13,22 @@ const RegisterPage = () => {
 
   const { isAlert, isLoading, displayAlert } = useAppContext();
 
-  const checkMember = () => {};
+  const checkMember = () => {
+    setValues({ ...values, isMember: !values.isMember });
+  };
 
-  const handleChange = (e) => {};
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const { name, email, password, isMember } = values;
+
+    if (!email || !password || (!isMember && !name)) {
+      displayAlert();
+      return;
+    }
   };
 
   return (
