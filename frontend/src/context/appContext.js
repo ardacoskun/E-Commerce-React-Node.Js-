@@ -18,7 +18,7 @@ const initialState = {
   isAlert: false,
   alertMessage: "",
   alertClass: "",
-  user: user ? user : null,
+  user: user ? JSON.parse(user) : null,
   token: token,
 };
 
@@ -40,7 +40,7 @@ const AppProvider = ({ children }) => {
 
   const addTokenLocalStorage = ({ user, token }) => {
     localStorage.setItem("token", token);
-    localStorage.setItem("user", user);
+    localStorage.setItem("user", JSON.stringify(user));
   };
 
   const register = async (newUser) => {
