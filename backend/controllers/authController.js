@@ -20,4 +20,22 @@ const register = async (req, res) => {
   res.status(201).json(response.data);
 };
 
-module.exports = { register };
+const login = async (req, res) => {
+  const { password, email } = req.body;
+
+  if (!email || !password) {
+    throw new BadRequestError("Please provide all values");
+  }
+
+  const data = {
+    secretKey: process.env.SECRET_KEY,
+    email,
+    password,
+  };
+
+  const response = await axios.post(`${process.env.BASE_URL}auth/signin`, data);
+
+  res.status(200).json(response.data);
+};
+
+module.exports = { register, login };
