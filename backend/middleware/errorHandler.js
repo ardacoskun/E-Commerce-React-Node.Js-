@@ -1,5 +1,15 @@
 const errorHandlerMiddleware = (err, req, res, next) => {
-  res.status(500).json({ msg: err.message });
+  const defaultError = {
+    statusCode: err.statusCode || 500,
+    msg: err.message || "Something went wrong",
+  };
+
+  if (err.message === "Request failed with status code 400") {
+    defaultError.statusCode = 400;
+    defaultError.msg = "User already exists.";
+  }
+
+  res.status(defaultError.statusCode).json({ msg: defaultError.msg });
 };
 
 module.exports = errorHandlerMiddleware;

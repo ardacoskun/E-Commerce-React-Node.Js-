@@ -20,7 +20,9 @@ const SubCategoryPage = () => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>{subcategoryId.toUpperCase()}</h1>
+      <h1 style={{ textAlign: "center" }}>
+        {subcategoryId.charAt(0).toUpperCase() + subcategoryId.slice(1)}
+      </h1>
       <Col>
         {subCategories.map((subCategory) => (
           <Subcategories key={subCategory?._id} subCategory={subCategory} />
