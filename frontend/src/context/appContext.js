@@ -10,13 +10,16 @@ import {
 
 import reducer from "./reducer";
 
+const token = localStorage.getItem("token");
+const user = localStorage.getItem("user");
+
 const initialState = {
   isLoading: false,
   isAlert: false,
   alertMessage: "",
   alertClass: "",
-  user: null,
-  token: null,
+  user: user ? user : null,
+  token: token,
 };
 
 const AppContext = createContext();
@@ -35,6 +38,11 @@ const AppProvider = ({ children }) => {
     }, [2000]);
   };
 
+  const addTokenLocalStorage = ({ user, token }) => {
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", user);
+  };
+
   const register = async (newUser) => {
     dispatch({ type: REGISTER_START });
 
@@ -43,6 +51,7 @@ const AppProvider = ({ children }) => {
       const { user, token } = response.data;
 
       dispatch({ type: REGISTER_SUCCESS, payload: { user, token } });
+      addTokenLocalStorage({ user, token });
     } catch (error) {
       dispatch({
         type: REGISTER_ERROR,

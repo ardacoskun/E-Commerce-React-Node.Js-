@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import Alerts from "../components/Alerts";
 import FormGroup from "../components/FormGroup";
 import { useAppContext } from "../context/appContext";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   name: "",
@@ -14,7 +15,8 @@ const initialState = {
 const RegisterPage = () => {
   const [values, setValues] = useState(initialState);
 
-  const { isAlert, isLoading, displayAlert, register } = useAppContext();
+  const { isAlert, isLoading, displayAlert, register, user } = useAppContext();
+  const navigate = useNavigate();
 
   const checkMember = () => {
     setValues({ ...values, isMember: !values.isMember });
@@ -36,6 +38,14 @@ const RegisterPage = () => {
 
     register(newUser);
   };
+
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate("/");
+      }, [2000]);
+    }
+  }, [user, navigate]);
 
   return (
     <Form className="register-form" onSubmit={handleSubmit}>
@@ -65,7 +75,7 @@ const RegisterPage = () => {
         value={values.password}
         handleChange={handleChange}
       />
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" disabled={isLoading}>
         {values.isMember ? "Sign In" : "Register"}
       </Button>
       <div className="form-undertext">
