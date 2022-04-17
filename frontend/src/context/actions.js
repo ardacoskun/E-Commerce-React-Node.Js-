@@ -1,2 +1,6 @@
 export const DISPLAY_ALERT = "SHOW_ALERT";
 export const CLEAR_ALERT = "CLEAR_ALERT";
+
+export const REGISTER_START = "REGISTER_START";
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_ERROR = "REGISTER_ERROR";

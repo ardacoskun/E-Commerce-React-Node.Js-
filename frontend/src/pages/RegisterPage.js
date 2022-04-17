@@ -14,7 +14,7 @@ const initialState = {
 const RegisterPage = () => {
   const [values, setValues] = useState(initialState);
 
-  const { isAlert, isLoading, displayAlert } = useAppContext();
+  const { isAlert, isLoading, displayAlert, register } = useAppContext();
 
   const checkMember = () => {
     setValues({ ...values, isMember: !values.isMember });
@@ -32,6 +32,9 @@ const RegisterPage = () => {
       displayAlert();
       return;
     }
+    const newUser = { name, email, password };
+
+    register(newUser);
   };
 
   return (
@@ -42,7 +45,7 @@ const RegisterPage = () => {
 
       {isAlert && <Alerts />}
 
-      {values.isMember && (
+      {!values.isMember && (
         <FormGroup
           type="text"
           name="name"
