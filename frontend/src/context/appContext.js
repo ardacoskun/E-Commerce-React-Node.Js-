@@ -6,6 +6,9 @@ import {
   REGISTER_START,
   REGISTER_SUCCESS,
   REGISTER_ERROR,
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
 } from "./actions";
 
 import reducer from "./reducer";
@@ -61,8 +64,25 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const login = async (currentUser) => {
+    dispatch({ type: LOGIN_START });
+    try {
+      const response = await axios.post("/auth/login", currentUser);
+      const { user, token } = response.data;
+
+      dispatch({ type: LOGIN_SUCCESS, payload: { user, token } });
+      addTokenLocalStorage({ user, token });
+    } catch (error) {
+      dispatch({
+        type: LOGIN_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+    clearAlert();
+  };
+
   return (
-    <AppContext.Provider value={{ ...state, displayAlert, register }}>
+    <AppContext.Provider value={{ ...state, displayAlert, register, login }}>
       {children}
     </AppContext.Provider>
   );
