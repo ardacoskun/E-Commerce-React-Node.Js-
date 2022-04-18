@@ -1,7 +1,11 @@
 import React from "react";
 import { Form, Col, Row } from "react-bootstrap";
+import FormGroup from "../components/FormGroup";
+import { useAppContext } from "../context/appContext";
 
 const ProfilePage = () => {
+  const { user } = useAppContext();
+
   return (
     <Col
       style={{
@@ -14,19 +18,22 @@ const ProfilePage = () => {
         <h2>Profile</h2>
       </Row>
       <Form>
-        <Form.Group controlId="name" className="mb-3">
-          <Form.Label>Name</Form.Label>
-          <Form.Control type="name" value="test" disabled></Form.Control>
-        </Form.Group>
+        <FormGroup
+          type="text"
+          name="name"
+          value={user.name}
+          disabled="true"
+          labelName="Name"
+        />
 
-        <Form.Group controlId="email" className="mb-3">
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
-            type="email"
-            value="test@gmail.com"
-            disabled
-          ></Form.Control>
-        </Form.Group>
+        <FormGroup
+          type="email"
+          name="email"
+          value={user.email}
+          disabled="true"
+          labelName="Email"
+        />
+
         <Form.Group controlId="address" className="mb-3">
           <Form.Label>Ship Address</Form.Label>
           <Form.Control

@@ -1,7 +1,14 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-const FormGroup = ({ name, value, type, labelName, handleChange }) => {
+const FormGroup = ({
+  name,
+  value,
+  type,
+  labelName,
+  handleChange,
+  disabled,
+}) => {
   return (
     <Form.Group className="mb-3">
       <Form.Label htmlFor={name}>
@@ -12,6 +19,7 @@ const FormGroup = ({ name, value, type, labelName, handleChange }) => {
         name={name}
         value={value}
         onChange={handleChange}
+        disabled={disabled}
       />
     </Form.Group>
   );
