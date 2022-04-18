@@ -11,6 +11,7 @@ import SingleProductPage from "./pages/SingleProductPage";
 import BreadCrumbs from "./components/BreadCrumbs";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
+import ProtectedRoute from "./pages/ProtectedRoute";
 const App = () => {
   return (
     <>
@@ -35,7 +36,14 @@ const App = () => {
             />
             <Route path="/signin" element={<RegisterPage />} />
 
-            <Route path="/profile" element={<ProfilePage />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </Container>
       </main>
