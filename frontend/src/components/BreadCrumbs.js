@@ -20,7 +20,7 @@ const BreadCrumbs = () => {
           const routeTo = `/${pathNames.slice(0, index + 1).join("/")}`;
           const isLast = index === pathNames.length - 1;
           return isLast ? (
-            <Breadcrumb.Item>{path.toUpperCase()}</Breadcrumb.Item>
+            <Breadcrumb.Item key={index}>{path.toUpperCase()}</Breadcrumb.Item>
           ) : (
             <LinkContainer to={`${routeTo}`}>
               <Breadcrumb.Item>{path.toUpperCase()}</Breadcrumb.Item>
