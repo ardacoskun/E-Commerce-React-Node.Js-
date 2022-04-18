@@ -22,7 +22,7 @@ const BreadCrumbs = () => {
           return isLast ? (
             <Breadcrumb.Item key={index}>{path.toUpperCase()}</Breadcrumb.Item>
           ) : (
-            <LinkContainer to={`${routeTo}`}>
+            <LinkContainer to={`${routeTo}`} key={index}>
               <Breadcrumb.Item>{path.toUpperCase()}</Breadcrumb.Item>
             </LinkContainer>
           );

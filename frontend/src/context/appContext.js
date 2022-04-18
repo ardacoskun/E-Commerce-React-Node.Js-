@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useContext, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   DISPLAY_ALERT,
   CLEAR_ALERT,
@@ -30,6 +31,8 @@ const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const navigate = useNavigate();
 
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT });
@@ -90,6 +93,7 @@ const AppProvider = ({ children }) => {
   const logout = () => {
     deleteTokenLocalStorage();
     dispatch({ type: LOGOUT_SUCCESS });
+    navigate("/");
   };
 
   return (

@@ -10,6 +10,7 @@ import ProductsPage from "./pages/ProductsPage";
 import SingleProductPage from "./pages/SingleProductPage";
 import BreadCrumbs from "./components/BreadCrumbs";
 import RegisterPage from "./pages/RegisterPage";
+import ProfilePage from "./pages/ProfilePage";
 const App = () => {
   return (
     <>
@@ -33,6 +34,8 @@ const App = () => {
               element={<SingleProductPage />}
             />
             <Route path="/signin" element={<RegisterPage />} />
+
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </Container>
       </main>
