@@ -4,7 +4,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useAppContext } from "../context/appContext";
 
 const NavbarItem = () => {
-  const { user } = useAppContext();
+  const { user, logout } = useAppContext();
 
   return (
     <header>
@@ -41,7 +41,7 @@ const NavbarItem = () => {
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
 
-                  <NavDropdown.Item>Logout</NavDropdown.Item>
+                  <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
                 </NavDropdown>
               ) : (
                 <LinkContainer to="/signin">

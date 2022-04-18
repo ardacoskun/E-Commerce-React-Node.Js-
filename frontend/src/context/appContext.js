@@ -9,6 +9,7 @@ import {
   LOGIN_START,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
+  LOGOUT_SUCCESS,
 } from "./actions";
 
 import reducer from "./reducer";
@@ -46,6 +47,11 @@ const AppProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(user));
   };
 
+  const deleteTokenLocalStorage = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+  };
+
   const register = async (newUser) => {
     dispatch({ type: REGISTER_START });
 
@@ -81,8 +87,15 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const logout = () => {
+    deleteTokenLocalStorage();
+    dispatch({ type: LOGOUT_SUCCESS });
+  };
+
   return (
-    <AppContext.Provider value={{ ...state, displayAlert, register, login }}>
+    <AppContext.Provider
+      value={{ ...state, displayAlert, register, login, logout }}
+    >
       {children}
     </AppContext.Provider>
   );
