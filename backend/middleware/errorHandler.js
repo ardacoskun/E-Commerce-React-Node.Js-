@@ -6,7 +6,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
 
   if (err.message === "Request failed with status code 400") {
     defaultError.statusCode = 400;
-    defaultError.msg = "User already exists.";
+    defaultError.msg = err.response.data.error;
   }
 
   res.status(defaultError.statusCode).json({ msg: defaultError.msg });
