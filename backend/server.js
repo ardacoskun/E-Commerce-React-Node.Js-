@@ -12,6 +12,7 @@ const cartRoutes = require("./routes/cartRoutes");
 
 const notFoundMiddleware = require("./middleware/notFound");
 const errorHandlerMiddleware = require("./middleware/errorHandler");
+const authCheck = require("./middleware/authCheck");
 
 app.use(express.json());
 
@@ -20,7 +21,7 @@ app.use(express.json());
 // });
 
 app.use("/auth", authRoutes);
-app.use("/cart", cartRoutes);
+app.use("/cart", authCheck, cartRoutes);
 app.use("/", categoryRoutes);
 
 app.use(notFoundMiddleware);
