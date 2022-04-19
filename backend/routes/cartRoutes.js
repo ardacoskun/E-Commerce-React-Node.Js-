@@ -6,4 +6,6 @@ const authCheck = require("../middleware/authCheck");
 
 router.get("/", authCheck, cartController.getCart);
 
+router.post("/addItem", authCheck, cartController.addItemToCart);
+
 module.exports = router;
