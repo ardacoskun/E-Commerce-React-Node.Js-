@@ -12,6 +12,7 @@ import BreadCrumbs from "./components/BreadCrumbs";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import CartPage from "./pages/CartPage";
 const App = () => {
   return (
     <>
@@ -41,6 +42,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/cart"
+              element={
+                <ProtectedRoute>
+                  <CartPage />
                 </ProtectedRoute>
               }
             />
