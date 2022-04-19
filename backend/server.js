@@ -8,6 +8,8 @@ const app = express();
 
 const categoryRoutes = require("./routes/categoryRoutes");
 const authRoutes = require("./routes/authRoutes");
+const cartRoutes = require("./routes/cartRoutes");
+
 const notFoundMiddleware = require("./middleware/notFound");
 const errorHandlerMiddleware = require("./middleware/errorHandler");
 
@@ -18,6 +20,7 @@ app.use(express.json());
 // });
 
 app.use("/auth", authRoutes);
+app.use("/cart", cartRoutes);
 app.use("/", categoryRoutes);
 
 app.use(notFoundMiddleware);
