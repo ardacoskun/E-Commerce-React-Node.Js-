@@ -10,4 +10,10 @@ router.post("/addItem", authCheck, cartController.addItemToCart);
 
 router.delete("/removeItem", authCheck, cartController.removeItemFromCart);
 
+router.post(
+  "/changeItemQuantity",
+  authCheck,
+  cartController.changeQuantityOfItem
+);
+
 module.exports = router;

@@ -56,4 +56,27 @@ const removeItemFromCart = async (req, res) => {
   res.status(202).json({ msg: "Item removed from the cart" });
 };
 
-module.exports = { getCart, addItemToCart, removeItemFromCart };
+const changeQuantityOfItem = async (req, res) => {
+  const token = req.token;
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.post(
+    `${process.env.BASE_URL}/cart/changeItemQuantity`,
+    req.body,
+    config
+  );
+  res.status(200).json(response.data);
+};
+
+module.exports = {
+  getCart,
+  addItemToCart,
+  removeItemFromCart,
+  changeQuantityOfItem,
+};
