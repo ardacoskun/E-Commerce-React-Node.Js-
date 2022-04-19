@@ -36,4 +36,24 @@ const addItemToCart = async (req, res) => {
   res.status(201).json(response.data);
 };
 
-module.exports = { getCart, addItemToCart };
+const removeItemFromCart = async (req, res) => {
+  const token = req.token;
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  await axios({
+    method: "DELETE",
+    url: `${process.env.BASE_URL}/cart/removeItem`,
+    data: req.body,
+    headers: config.headers,
+  });
+
+  res.status(202).json({ msg: "Item removed from the cart" });
+};
+
+module.exports = { getCart, addItemToCart, removeItemFromCart };
