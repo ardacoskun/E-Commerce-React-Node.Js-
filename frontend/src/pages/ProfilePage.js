@@ -22,7 +22,7 @@ const ProfilePage = () => {
           type="text"
           name="name"
           value={user.name}
-          disabled="true"
+          disabled={true}
           labelName="Name"
         />
 
@@ -30,7 +30,7 @@ const ProfilePage = () => {
           type="email"
           name="email"
           value={user.email}
-          disabled="true"
+          disabled={true}
           labelName="Email"
         />
 
@@ -41,7 +41,7 @@ const ProfilePage = () => {
             type="text"
             value="3 Linda Street
         Hackettstown, NJ 07840"
-            disabled
+            disabled={true}
           ></Form.Control>
         </Form.Group>
       </Form>
