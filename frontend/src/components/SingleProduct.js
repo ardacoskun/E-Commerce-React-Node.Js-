@@ -8,6 +8,7 @@ import {
   Card,
   Image,
 } from "react-bootstrap";
+import ProductVariations from "./ProductVariations";
 
 const SingleProduct = ({ product }) => {
   return (
@@ -33,23 +34,7 @@ const SingleProduct = ({ product }) => {
               <p style={{ fontWeight: "bold" }}>Color</p>
 
               {product.variation_attributes[0].values.map((item) => (
-                <div role="group" class="btn-group" style={{ margin: "3px" }}>
-                  <input
-                    type="radio"
-                    id={`select-${item.value}`}
-                    value={item.name}
-                    name="color"
-                    autoComplete="off"
-                    class="btn-check"
-                    required
-                  />
-                  <label
-                    class="btn btn-outline-info mb-4"
-                    htmlFor={`select-${item.value}`}
-                  >
-                    {item.name}
-                  </label>
-                </div>
+                <ProductVariations item={item} name="color" />
               ))}
             </ListGroupItem>
           )}
@@ -57,23 +42,7 @@ const SingleProduct = ({ product }) => {
             <ListGroupItem>
               <p style={{ fontWeight: "bold" }}>Size</p>
               {product.variation_attributes[1].values.map((item) => (
-                <div role="group" class="btn-group" style={{ margin: "3px" }}>
-                  <input
-                    type="radio"
-                    id={`select-${item.value}`}
-                    value={item.name}
-                    name="size"
-                    autoComplete="off"
-                    class="btn-check"
-                    required
-                  />
-                  <label
-                    class="btn btn-outline-info mb-4"
-                    htmlFor={`select-${item.value}`}
-                  >
-                    {item.name}
-                  </label>
-                </div>
+                <ProductVariations item={item} name="size" />
               ))}
             </ListGroupItem>
           )}
@@ -82,23 +51,7 @@ const SingleProduct = ({ product }) => {
             <ListGroupItem>
               <p style={{ fontWeight: "bold" }}>Width</p>
               {product.variation_attributes[2].values.map((item) => (
-                <div role="group" class="btn-group" style={{ margin: "3px" }}>
-                  <input
-                    type="radio"
-                    id={`select-${item.value}`}
-                    value={item.name}
-                    name="width"
-                    autoComplete="off"
-                    class="btn-check"
-                    required
-                  />
-                  <label
-                    class="btn btn-outline-info mb-4"
-                    htmlFor={`select-${item.value}`}
-                  >
-                    {item.name}
-                  </label>
-                </div>
+                <ProductVariations item={item} name="width" />
               ))}
             </ListGroupItem>
           )}
