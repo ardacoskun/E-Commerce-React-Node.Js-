@@ -85,6 +85,22 @@ const SingleProduct = ({ product }) => {
 
   const variantData = getVariantId();
 
+  const sendProducToCart = async () => {
+    try {
+      if (variantData) {
+        const productData = {
+          productId: product.id,
+          variantId: variantData,
+          quantity: "2",
+        };
+
+        await axios.post("/cart/addItem", productData);
+      } else {
+        alert("This product is out of stock");
+      }
+    } catch (error) {}
+  };
+
   return (
     <Row>
       <Col md={4}>
@@ -173,7 +189,11 @@ const SingleProduct = ({ product }) => {
               </Row>
             </ListGroup.Item>
             <ListGroup.Item>
-              <Button className="w-100" type="button">
+              <Button
+                className="w-100"
+                type="button"
+                onClick={sendProducToCart}
+              >
                 Add To Cart
               </Button>
             </ListGroup.Item>

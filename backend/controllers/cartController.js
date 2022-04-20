@@ -28,9 +28,18 @@ const addItemToCart = async (req, res) => {
     },
   };
 
+  const { productId, variantId, quantity } = req.body;
+
+  const productData = {
+    secretKey: process.env.SECRET_KEY,
+    productId,
+    variantId,
+    quantity,
+  };
+
   const response = await axios.post(
     `${process.env.BASE_URL}/cart/addItem`,
-    req.body,
+    productData,
     config
   );
   res.status(201).json(response.data);
