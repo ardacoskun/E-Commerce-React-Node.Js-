@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Col,
   Row,
@@ -11,6 +11,20 @@ import {
 import ProductVariations from "./ProductVariations";
 
 const SingleProduct = ({ product }) => {
+  const initialState = {
+    color: "",
+    size: "",
+    width: "",
+  };
+
+  const [data, setData] = useState(initialState);
+
+  useEffect(() => {}, [data]);
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
   return (
     <Row>
       <Col md={4}>
@@ -34,7 +48,11 @@ const SingleProduct = ({ product }) => {
               <p style={{ fontWeight: "bold" }}>Color</p>
 
               {product.variation_attributes[0].values.map((item) => (
-                <ProductVariations item={item} name="color" />
+                <ProductVariations
+                  item={item}
+                  name="color"
+                  handleChange={handleChange}
+                />
               ))}
             </ListGroupItem>
           )}
@@ -42,7 +60,11 @@ const SingleProduct = ({ product }) => {
             <ListGroupItem>
               <p style={{ fontWeight: "bold" }}>Size</p>
               {product.variation_attributes[1].values.map((item) => (
-                <ProductVariations item={item} name="size" />
+                <ProductVariations
+                  item={item}
+                  name="size"
+                  handleChange={handleChange}
+                />
               ))}
             </ListGroupItem>
           )}
@@ -51,7 +73,11 @@ const SingleProduct = ({ product }) => {
             <ListGroupItem>
               <p style={{ fontWeight: "bold" }}>Width</p>
               {product.variation_attributes[2].values.map((item) => (
-                <ProductVariations item={item} name="width" />
+                <ProductVariations
+                  item={item}
+                  name="width"
+                  handleChange={handleChange}
+                />
               ))}
             </ListGroupItem>
           )}
