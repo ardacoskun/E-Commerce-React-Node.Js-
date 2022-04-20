@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import {
   Col,
   Row,
@@ -16,14 +17,73 @@ const SingleProduct = ({ product }) => {
     size: "",
     width: "",
   };
-
   const [data, setData] = useState(initialState);
 
-  useEffect(() => {}, [data]);
-
   const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    setData({ ...data, [e.target.name]: e.target.id });
   };
+
+  const getVariantId = () => {
+    let variantId = 0;
+
+    const products = product.variants;
+    for (let variant of products) {
+      const values = variant.variation_values;
+
+      const color = data.color;
+      const size = data.size;
+      const width = data.width;
+
+      if (color.length > 0 && size.length > 0 && width.length > 0) {
+        if (
+          color === values.color &&
+          size === values.size &&
+          width === values.width
+        ) {
+          variantId = variant.product_id;
+        }
+      } else if (color.length <= 0 && size.length > 0 && width.length > 0) {
+        if (
+          size === values.size ||
+          (size === values.accessorySize && width === values.width)
+        ) {
+          variantId = variant.product_id;
+        }
+      } else if (color.length > 0 && size.length > 0 && width.length <= 0) {
+        if (
+          size === values.size ||
+          (size === values.accessorySize && width === values.color)
+        ) {
+          variantId = variant.product_id;
+        }
+      } else if (color.length > 0 && size.length <= 0 && width.length > 0) {
+        if (color === values.color && width === values.color) {
+          variantId = variant.product_id;
+        }
+      } else if (color.length > 0 && size.length <= 0 && width.length <= 0) {
+        if (color === values.color) {
+          variantId = variant.product_id;
+        }
+      } else if (color.length <= 0 && size.length <= 0 && width.length > 0) {
+        if (width === values.width) {
+          variantId = variant.product_id;
+        }
+      } else if (color.length <= 0 && size.length > 0 && width.length <= 0) {
+        if (size === values.size || size === values.accessorySize) {
+          variantId = variant.product_id;
+        }
+      } else {
+        variantId = variant.product_id;
+      }
+    }
+    if (variantId === 0) {
+      return false;
+    } else {
+      return variantId;
+    }
+  };
+
+  const variantData = getVariantId();
 
   return (
     <Row>

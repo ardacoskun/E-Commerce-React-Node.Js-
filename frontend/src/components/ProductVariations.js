@@ -13,7 +13,7 @@ const ProductVariations = ({ item, name, handleChange }) => {
         onChange={handleChange}
         required
       />
-      <label className="btn btn-outline-info mb-4" htmlFor={item.value}>
+      <label className="btn btn-outline-primary mb-4" htmlFor={item.value}>
         {item.name}
       </label>
     </div>
