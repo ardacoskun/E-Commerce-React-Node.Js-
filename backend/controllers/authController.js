@@ -17,6 +17,13 @@ const register = async (req, res) => {
 
   const response = await axios.post(`${process.env.BASE_URL}auth/signup`, data);
 
+  const token = response.data.token;
+
+  res.cookie("jwt", token, {
+    maxAge: 3 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  });
+
   res.status(201).json(response.data);
 };
 
@@ -34,6 +41,13 @@ const login = async (req, res) => {
   };
 
   const response = await axios.post(`${process.env.BASE_URL}auth/signin`, data);
+
+  const token = response.data.token;
+
+  res.cookie("jwt", token, {
+    maxAge: 3 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  });
 
   res.status(200).json(response.data);
 };

@@ -1,13 +1,13 @@
 const UnAuthorizedError = require("../errors/unauthorizedError");
 
 const authCheck = async (req, res, next) => {
-  const token = req.headers.authorization;
+  const token = await req.cookies.jwt;
 
   if (!token) {
     throw new UnAuthorizedError("Invalid Authorization");
   }
 
-  req.token = token.replace("Bearer ", "");
+  req.token = token;
 
   next();
 };

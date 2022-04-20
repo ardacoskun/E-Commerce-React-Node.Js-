@@ -1,6 +1,7 @@
 const express = require("express");
 require("express-async-errors");
 const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ const errorHandlerMiddleware = require("./middleware/errorHandler");
 const authCheck = require("./middleware/authCheck");
 
 app.use(express.json());
+app.use(cookieParser());
 
 // app.get("/", (req, res) => {
 //   res.send("working");
