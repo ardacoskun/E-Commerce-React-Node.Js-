@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, ListGroup, Image, Button, Card } from "react-bootstrap";
-import axios from "axios";
 import { useAppContext } from "../context/appContext";
 
 const CartPage = () => {
-  const { getCart, isAlert, isLoading, alertMessage, cart } = useAppContext();
+  const { getCart, isAlert, isLoading, alertMessage, cart, removeCartItem } =
+    useAppContext();
 
   const sumOfPrices = [];
   const [total, setTotal] = useState();
@@ -38,7 +38,7 @@ const CartPage = () => {
                       <Image src="product" alt="product" fluid rounded />
                     </Col>
 
-                    <Col md={3}>Ard cOŞKUN</Col>
+                    <Col md={3}>Product Name</Col>
 
                     <Col md={2}>
                       <div className="quantity-container">
@@ -53,7 +53,16 @@ const CartPage = () => {
                     </Col>
 
                     <Col md={2}>
-                      <Button type="button" variant="light">
+                      <Button
+                        type="button"
+                        variant="light"
+                        onClick={() =>
+                          removeCartItem(
+                            item.productId,
+                            item.variant.product_id
+                          )
+                        }
+                      >
                         <i className="fas fa-trash"></i>
                       </Button>
                     </Col>

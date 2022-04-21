@@ -11,6 +11,7 @@ import {
   GET_CART_START,
   GET_CART_SUCCESS,
   GET_CART_ERROR,
+  REMOVE_CART_ITEM,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -124,6 +125,12 @@ const reducer = (state, action) => {
     };
   }
 
+  if (action.type === REMOVE_CART_ITEM) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
   throw new Error(`No action:${action.type}`);
 };
 

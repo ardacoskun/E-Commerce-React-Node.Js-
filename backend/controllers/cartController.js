@@ -56,10 +56,18 @@ const removeItemFromCart = async (req, res) => {
     },
   };
 
+  const { productId, variantId } = req.body;
+
+  const productData = {
+    secretKey: process.env.SECRET_KEY,
+    productId,
+    variantId,
+  };
+
   await axios({
     method: "DELETE",
     url: `${process.env.BASE_URL}/cart/removeItem`,
-    data: req.body,
+    data: productData,
     headers: config.headers,
   });
 

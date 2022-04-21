@@ -14,6 +14,7 @@ import {
   GET_CART_START,
   GET_CART_SUCCESS,
   GET_CART_ERROR,
+  REMOVE_CART_ITEM,
 } from "./actions";
 
 import reducer from "./reducer";
@@ -114,9 +115,32 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const removeCartItem = async (productId, variantId) => {
+    dispatch({ type: REMOVE_CART_ITEM });
+    try {
+      await axios({
+        method: "DELETE",
+        url: "/cart/removeItem",
+        data: {
+          productId,
+          variantId,
+        },
+      });
+      getCart();
+    } catch (error) {}
+  };
+
   return (
     <AppContext.Provider
-      value={{ ...state, displayAlert, register, login, logout, getCart }}
+      value={{
+        ...state,
+        displayAlert,
+        register,
+        login,
+        logout,
+        getCart,
+        removeCartItem,
+      }}
     >
       {children}
     </AppContext.Provider>
