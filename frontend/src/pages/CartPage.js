@@ -6,9 +6,23 @@ import { useAppContext } from "../context/appContext";
 const CartPage = () => {
   const { getCart, isAlert, isLoading, alertMessage, cart } = useAppContext();
 
+  const sumOfPrices = [];
+  const [total, setTotal] = useState();
+
   useEffect(() => {
     getCart();
   }, []);
+
+  useEffect(() => {
+    getTotalPrice();
+  }, [sumOfPrices]);
+
+  const getTotalPrice = () => {
+    cart.map((item) => {
+      sumOfPrices.push(item.quantity * item.variant.price);
+    });
+    setTotal(sumOfPrices.reduce((acc, curr) => acc + curr, 0));
+  };
 
   return (
     <>
@@ -52,7 +66,7 @@ const CartPage = () => {
             <Card>
               <ListGroup variant="flush">
                 <ListGroup.Item>
-                  <h2>Total</h2>$ 100
+                  <h2>Total</h2>$ {total}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Button type="button" className="btn-block">
