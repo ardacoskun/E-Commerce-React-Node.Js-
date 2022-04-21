@@ -18,6 +18,19 @@ const SingleProduct = ({ product }) => {
     width: "",
   };
   const [data, setData] = useState(initialState);
+  const [count, setCount] = useState(1);
+
+  //increase product quantity
+  const increase = () => {
+    setCount(() => count + 1);
+  };
+
+  //decrease porduct quantity
+  const decrease = () => {
+    if (count > 1) {
+      setCount(() => count - 1);
+    }
+  };
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.id });
@@ -90,7 +103,7 @@ const SingleProduct = ({ product }) => {
       const productData = {
         productId: product.id,
         variantId: variantData,
-        quantity: "2",
+        quantity: count,
       };
 
       await axios.post("/cart/addItem", productData);
@@ -169,10 +182,18 @@ const SingleProduct = ({ product }) => {
         <Card>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <Row>
+              <Row style={{ display: "flex", alignItems: "center" }}>
                 <Col>QTY</Col>
                 <Col>
-                  <b>12</b>
+                  <div className="quantity-container">
+                    <span className="quantity-cursor" onClick={increase}>
+                      +
+                    </span>
+                    <div className="quantity-amount">{count}</div>
+                    <span className="quantity-cursor" onClick={decrease}>
+                      -
+                    </span>
+                  </div>
                 </Col>
               </Row>
             </ListGroup.Item>
@@ -180,7 +201,7 @@ const SingleProduct = ({ product }) => {
               <Row>
                 <Col>Total Price:</Col>
                 <Col>
-                  <b>{product.price}</b>
+                  <b>{Number(product.price * count).toFixed(2)} $</b>
                 </Col>
               </Row>
             </ListGroup.Item>

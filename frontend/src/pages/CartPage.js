@@ -83,8 +83,7 @@ const CartPage = () => {
                     </Col>
 
                     <Col md={2} style={{ fontSize: "20px" }}>
-                      $
-                      {item.variant.price.toFixed(2) * item.quantity.toFixed(2)}
+                      $ ${Number(item.quantity * item.variant.price).toFixed(2)}
                     </Col>
 
                     <Col md={2}>
@@ -110,7 +109,7 @@ const CartPage = () => {
             <Card>
               <ListGroup variant="flush">
                 <ListGroup.Item>
-                  <h2>Total</h2>$ {total.toFixed(2)}
+                  <h2>Total</h2>$ {Number(total).toFixed(2)}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Button type="button" className="btn-block">
