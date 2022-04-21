@@ -84,9 +84,18 @@ const changeQuantityOfItem = async (req, res) => {
     },
   };
 
+  const { productId, variantId, quantity } = req.body;
+
+  const productData = {
+    secretKey: process.env.SECRET_KEY,
+    productId,
+    variantId,
+    quantity,
+  };
+
   const response = await axios.post(
     `${process.env.BASE_URL}/cart/changeItemQuantity`,
-    req.body,
+    productData,
     config
   );
   res.status(200).json(response.data);

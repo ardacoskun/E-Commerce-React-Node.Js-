@@ -3,8 +3,15 @@ import { Row, Col, ListGroup, Image, Button, Card } from "react-bootstrap";
 import { useAppContext } from "../context/appContext";
 
 const CartPage = () => {
-  const { getCart, isAlert, isLoading, alertMessage, cart, removeCartItem } =
-    useAppContext();
+  const {
+    getCart,
+    isAlert,
+    isLoading,
+    alertMessage,
+    cart,
+    removeCartItem,
+    increaseCartItem,
+  } = useAppContext();
 
   const sumOfPrices = [];
   const [total, setTotal] = useState();
@@ -24,6 +31,10 @@ const CartPage = () => {
     setTotal(sumOfPrices.reduce((acc, curr) => acc + curr, 0));
   };
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       {cart.length > 0 ? (
@@ -42,14 +53,26 @@ const CartPage = () => {
 
                     <Col md={2}>
                       <div className="quantity-container">
-                        <span className="quantity-cursor">+</span>
+                        <span
+                          className="quantity-cursor"
+                          onClick={() =>
+                            increaseCartItem(
+                              item.productId,
+                              item.variant.product_id,
+                              item.quantity
+                            )
+                          }
+                        >
+                          +
+                        </span>
                         <div className="quantity-amount">{item.quantity}</div>
                         <span className="quantity-cursor">-</span>
                       </div>
                     </Col>
 
                     <Col md={2} style={{ fontSize: "20px" }}>
-                      ${item.variant.price * item.quantity}
+                      $
+                      {item.variant.price.toFixed(2) * item.quantity.toFixed(2)}
                     </Col>
 
                     <Col md={2}>
@@ -75,7 +98,7 @@ const CartPage = () => {
             <Card>
               <ListGroup variant="flush">
                 <ListGroup.Item>
-                  <h2>Total</h2>$ {total}
+                  <h2>Total</h2>$ {total.toFixed(2)}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Button type="button" className="btn-block">
