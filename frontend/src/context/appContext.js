@@ -16,6 +16,7 @@ import {
   GET_CART_ERROR,
   REMOVE_CART_ITEM,
   INCREASE_CART_ITEM,
+  DECREASE_CART_ITEM,
 } from "./actions";
 
 import reducer from "./reducer";
@@ -146,6 +147,26 @@ const AppProvider = ({ children }) => {
     } catch (error) {}
   };
 
+  const decreaseCartItem = async (productId, variantId, quantity) => {
+    dispatch({ type: DECREASE_CART_ITEM });
+
+    if (quantity <= 0) {
+      return removeCartItem(productId, variantId);
+    }
+    quantity = quantity - 1;
+
+    try {
+      const productData = {
+        productId,
+        variantId,
+        quantity,
+      };
+      await axios.post("/cart/changeItemQuantity", productData);
+
+      getCart();
+    } catch (error) {}
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -157,6 +178,7 @@ const AppProvider = ({ children }) => {
         getCart,
         removeCartItem,
         increaseCartItem,
+        decreaseCartItem,
       }}
     >
       {children}

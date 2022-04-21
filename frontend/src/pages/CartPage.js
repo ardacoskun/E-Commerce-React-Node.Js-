@@ -11,6 +11,7 @@ const CartPage = () => {
     cart,
     removeCartItem,
     increaseCartItem,
+    decreaseCartItem,
   } = useAppContext();
 
   const sumOfPrices = [];
@@ -66,7 +67,18 @@ const CartPage = () => {
                           +
                         </span>
                         <div className="quantity-amount">{item.quantity}</div>
-                        <span className="quantity-cursor">-</span>
+                        <span
+                          className="quantity-cursor"
+                          onClick={() =>
+                            decreaseCartItem(
+                              item.productId,
+                              item.variant.product_id,
+                              item.quantity
+                            )
+                          }
+                        >
+                          -
+                        </span>
                       </div>
                     </Col>
 
