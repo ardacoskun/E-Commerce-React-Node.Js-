@@ -10,3 +10,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+
+export const GET_CART_START = "GET_CART_START";
+export const GET_CART_SUCCESS = "GET_CART_SUCCESS";
+export const GET_CART_ERROR = "GET_CART_ERROR";

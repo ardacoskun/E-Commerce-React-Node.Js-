@@ -42,6 +42,7 @@ const addItemToCart = async (req, res) => {
     productData,
     config
   );
+
   res.status(201).json(response.data);
 };
 

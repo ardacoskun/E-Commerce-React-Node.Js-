@@ -39,3 +39,18 @@ main {
   justify-content: center;
   height: 50px;
 }
+
+.quantity-container {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-cursor {
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.quantity-amount {
+  font-size: 24px;
+  margin: 7px;
+}

@@ -11,6 +11,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   LOGOUT_SUCCESS,
+  GET_CART_START,
+  GET_CART_SUCCESS,
+  GET_CART_ERROR,
 } from "./actions";
 
 import reducer from "./reducer";
@@ -25,6 +28,7 @@ const initialState = {
   alertClass: "",
   user: user ? JSON.parse(user) : null,
   token: token,
+  cart: [],
 };
 
 const AppContext = createContext();
@@ -96,9 +100,23 @@ const AppProvider = ({ children }) => {
     navigate("/");
   };
 
+  const getCart = async () => {
+    dispatch({ type: GET_CART_START });
+    try {
+      const { data } = await axios.get("/cart");
+
+      dispatch({ type: GET_CART_SUCCESS, payload: data.items });
+    } catch (error) {
+      // dispatch({
+      //   type: GET_CART_ERROR,
+      //   payload: { msg: error.response.data.msg },
+      // });
+    }
+  };
+
   return (
     <AppContext.Provider
-      value={{ ...state, displayAlert, register, login, logout }}
+      value={{ ...state, displayAlert, register, login, logout, getCart }}
     >
       {children}
     </AppContext.Provider>

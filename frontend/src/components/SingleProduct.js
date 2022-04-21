@@ -87,17 +87,13 @@ const SingleProduct = ({ product }) => {
 
   const sendProducToCart = async () => {
     try {
-      if (variantData) {
-        const productData = {
-          productId: product.id,
-          variantId: variantData,
-          quantity: "2",
-        };
+      const productData = {
+        productId: product.id,
+        variantId: variantData,
+        quantity: "2",
+      };
 
-        await axios.post("/cart/addItem", productData);
-      } else {
-        alert("This product is out of stock");
-      }
+      await axios.post("/cart/addItem", productData);
     } catch (error) {}
   };
 

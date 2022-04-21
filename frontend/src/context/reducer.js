@@ -8,6 +8,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   LOGOUT_SUCCESS,
+  GET_CART_START,
+  GET_CART_SUCCESS,
+  GET_CART_ERROR,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -92,6 +95,32 @@ const reducer = (state, action) => {
       ...state,
       user: null,
       token: null,
+    };
+  }
+
+  if (action.type === GET_CART_START) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+
+  if (action.type === GET_CART_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      isAlert: false,
+      cart: action.payload,
+    };
+  }
+
+  if (action.type === GET_CART_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      isAlert: true,
+      alertMessage: action.payload.msg,
+      alertClass: "danger",
     };
   }
 
