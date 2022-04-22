@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, ListGroup, Image, Button, Card } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 import { useAppContext } from "../context/appContext";
 
 const CartPage = () => {

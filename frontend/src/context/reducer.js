@@ -16,6 +16,8 @@ import {
   DECREASE_CART_ITEM,
   ADD_CART_ITEM,
   GET_WISHLIST_SUCCESS,
+  ADD_CART_SUCCESS,
+  ADD_CART_ERROR,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -153,6 +155,12 @@ const reducer = (state, action) => {
   }
 
   if (action.type === DECREASE_CART_ITEM) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+  if (action.type === ADD_CART_ITEM) {
     return {
       ...state,
       isLoading: true,

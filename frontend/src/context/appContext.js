@@ -182,8 +182,14 @@ const AppProvider = ({ children }) => {
         quantity,
       };
       const response = await axios.post(`/${endpoint}/addItem`, productData);
+
       navigate(`/${endpoint}`);
-    } catch (error) {}
+    } catch (error) {
+      // dispatch({
+      //   type: ADD_CART_ERROR,
+      //   payload: { msg: error.response.data.msg },
+      // });
+    }
   };
 
   return (

@@ -12,8 +12,6 @@ const SingleProductPage = () => {
     getProduct();
   }, [loading]);
 
-  useEffect(() => {}, []);
-
   const getProduct = async () => {
     const { data } = await axios.get(
       `/${parentId}/${subcategoryId}/${productCategoryId}/${productId}`
