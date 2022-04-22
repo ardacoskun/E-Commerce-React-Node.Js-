@@ -176,7 +176,6 @@ const AppProvider = ({ children }) => {
         variantId,
         quantity,
       };
-
       const response = await axios.post(`/${endpoint}/addItem`, productData);
       navigate(`/${endpoint}`);
     } catch (error) {}

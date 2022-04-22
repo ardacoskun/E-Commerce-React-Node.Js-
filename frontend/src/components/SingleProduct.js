@@ -167,10 +167,14 @@ const SingleProduct = ({ product }) => {
           >
             <b>
               {product.currency} {product.price}{" "}
-              <Button>
-                <i className="fas fa-heart"></i> Add to Wishlist
-              </Button>
             </b>
+            <Button
+              onClick={() =>
+                addItemToCart(product.id, variantData, count, "wishlist")
+              }
+            >
+              <i className="fas fa-heart"></i> Add to Wishlist
+            </Button>
           </ListGroup.Item>
         </ListGroup>
       </Col>

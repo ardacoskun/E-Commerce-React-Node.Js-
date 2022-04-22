@@ -28,6 +28,10 @@ const addItemToCart = async (req, res) => {
     },
   };
 
+  if (!req.body.variantId) {
+    throw new OutOfStockError("This item is out of stock.");
+  }
+
   const { productId, variantId, quantity } = req.body;
 
   const productData = {
