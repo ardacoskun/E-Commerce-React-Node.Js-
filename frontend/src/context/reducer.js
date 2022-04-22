@@ -15,6 +15,7 @@ import {
   INCREASE_CART_ITEM,
   DECREASE_CART_ITEM,
   ADD_CART_ITEM,
+  GET_WISHLIST_SUCCESS,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -115,6 +116,15 @@ const reducer = (state, action) => {
       isLoading: false,
       isAlert: false,
       cart: action.payload,
+    };
+  }
+
+  if (action.type === GET_WISHLIST_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      isAlert: false,
+      wishlist: action.payload,
     };
   }
 

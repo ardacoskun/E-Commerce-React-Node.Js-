@@ -18,6 +18,7 @@ import {
   INCREASE_CART_ITEM,
   DECREASE_CART_ITEM,
   ADD_CART_ITEM,
+  GET_WISHLIST_SUCCESS,
 } from "./actions";
 
 import reducer from "./reducer";
@@ -33,6 +34,7 @@ const initialState = {
   user: user ? JSON.parse(user) : null,
   token: token,
   cart: [],
+  wishlist: [],
 };
 
 const AppContext = createContext();
@@ -108,8 +110,11 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_CART_START });
     try {
       const { data } = await axios.get(`/${endpoint}`);
-
-      dispatch({ type: GET_CART_SUCCESS, payload: data.items });
+      if (endpoint === "cart") {
+        dispatch({ type: GET_CART_SUCCESS, payload: data.items });
+      } else {
+        dispatch({ type: GET_WISHLIST_SUCCESS, payload: data.items });
+      }
     } catch (error) {
       // dispatch({
       //   type: GET_CART_ERROR,
