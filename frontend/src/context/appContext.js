@@ -17,6 +17,7 @@ import {
   REMOVE_CART_ITEM,
   INCREASE_CART_ITEM,
   DECREASE_CART_ITEM,
+  ADD_CART_ITEM,
 } from "./actions";
 
 import reducer from "./reducer";
@@ -103,10 +104,10 @@ const AppProvider = ({ children }) => {
     navigate("/");
   };
 
-  const getCart = async () => {
+  const getCart = async (endpoint) => {
     dispatch({ type: GET_CART_START });
     try {
-      const { data } = await axios.get("/cart");
+      const { data } = await axios.get(`/${endpoint}`);
 
       dispatch({ type: GET_CART_SUCCESS, payload: data.items });
     } catch (error) {
@@ -117,22 +118,22 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const removeCartItem = async (productId, variantId) => {
+  const removeCartItem = async (productId, variantId, endpoint) => {
     dispatch({ type: REMOVE_CART_ITEM });
     try {
       await axios({
         method: "DELETE",
-        url: "/cart/removeItem",
+        url: `/${endpoint}/removeItem`,
         data: {
           productId,
           variantId,
         },
       });
-      getCart();
+      getCart(endpoint);
     } catch (error) {}
   };
 
-  const increaseCartItem = async (productId, variantId, quantity) => {
+  const increaseCartItem = async (productId, variantId, quantity, endpoint) => {
     dispatch({ type: INCREASE_CART_ITEM });
 
     quantity = quantity + 1;
@@ -142,12 +143,12 @@ const AppProvider = ({ children }) => {
         variantId,
         quantity,
       };
-      await axios.post("/cart/changeItemQuantity", productData);
-      getCart();
+      await axios.post(`/${endpoint}/changeItemQuantity`, productData);
+      getCart(endpoint);
     } catch (error) {}
   };
 
-  const decreaseCartItem = async (productId, variantId, quantity) => {
+  const decreaseCartItem = async (productId, variantId, quantity, endpoint) => {
     dispatch({ type: DECREASE_CART_ITEM });
 
     if (quantity <= 0) {
@@ -161,9 +162,23 @@ const AppProvider = ({ children }) => {
         variantId,
         quantity,
       };
-      await axios.post("/cart/changeItemQuantity", productData);
+      await axios.post(`/${endpoint}/changeItemQuantity`, productData);
 
-      getCart();
+      getCart(endpoint);
+    } catch (error) {}
+  };
+
+  const addItemToCart = async (productId, variantId, quantity, endpoint) => {
+    dispatch({ type: ADD_CART_ITEM });
+    try {
+      const productData = {
+        productId,
+        variantId,
+        quantity,
+      };
+
+      const response = await axios.post(`/${endpoint}/addItem`, productData);
+      navigate(`/${endpoint}`);
     } catch (error) {}
   };
 
@@ -179,6 +194,7 @@ const AppProvider = ({ children }) => {
         removeCartItem,
         increaseCartItem,
         decreaseCartItem,
+        addItemToCart,
       }}
     >
       {children}

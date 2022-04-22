@@ -10,6 +10,7 @@ import {
   Image,
 } from "react-bootstrap";
 import ProductVariations from "./ProductVariations";
+import { useAppContext } from "../context/appContext";
 
 const SingleProduct = ({ product }) => {
   const initialState = {
@@ -19,6 +20,8 @@ const SingleProduct = ({ product }) => {
   };
   const [data, setData] = useState(initialState);
   const [count, setCount] = useState(1);
+
+  const { addItemToCart } = useAppContext();
 
   //increase product quantity
   const increase = () => {
@@ -98,18 +101,6 @@ const SingleProduct = ({ product }) => {
 
   const variantData = getVariantId();
 
-  const sendProducToCart = async () => {
-    try {
-      const productData = {
-        productId: product.id,
-        variantId: variantData,
-        quantity: count,
-      };
-
-      await axios.post("/cart/addItem", productData);
-    } catch (error) {}
-  };
-
   return (
     <Row>
       <Col md={4}>
@@ -167,7 +158,13 @@ const SingleProduct = ({ product }) => {
             </ListGroupItem>
           )}
 
-          <ListGroup.Item>
+          <ListGroup.Item
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <b>
               {product.currency} {product.price}{" "}
               <Button>
@@ -209,7 +206,9 @@ const SingleProduct = ({ product }) => {
               <Button
                 className="w-100"
                 type="button"
-                onClick={sendProducToCart}
+                onClick={() =>
+                  addItemToCart(product.id, variantData, count, "cart")
+                }
               >
                 Add To Cart
               </Button>

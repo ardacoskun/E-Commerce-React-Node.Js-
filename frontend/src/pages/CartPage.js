@@ -18,7 +18,7 @@ const CartPage = () => {
   const [total, setTotal] = useState();
 
   useEffect(() => {
-    getCart();
+    getCart("cart");
   }, []);
 
   useEffect(() => {
@@ -60,7 +60,8 @@ const CartPage = () => {
                             increaseCartItem(
                               item.productId,
                               item.variant.product_id,
-                              item.quantity
+                              item.quantity,
+                              "cart"
                             )
                           }
                         >
@@ -73,7 +74,8 @@ const CartPage = () => {
                             decreaseCartItem(
                               item.productId,
                               item.variant.product_id,
-                              item.quantity
+                              item.quantity,
+                              "cart"
                             )
                           }
                         >
@@ -93,7 +95,8 @@ const CartPage = () => {
                         onClick={() =>
                           removeCartItem(
                             item.productId,
-                            item.variant.product_id
+                            item.variant.product_id,
+                            "cart"
                           )
                         }
                       >
