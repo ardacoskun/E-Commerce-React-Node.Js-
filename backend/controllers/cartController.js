@@ -1,4 +1,6 @@
 const axios = require("axios");
+const OutOfStockError = require("../errors/outOfStockError");
+const CartServices = require("../services/CartServices");
 
 const getCart = async (req, res) => {
   const token = req.token;
@@ -15,7 +17,15 @@ const getCart = async (req, res) => {
     config
   );
 
-  res.status(200).json(response.data);
+  const cartProducts = await CartServices.getCartProducts(response);
+  const cartProductsIds = CartServices.getProductIds(cartProducts);
+  const productInfo = CartServices.getProductInfos(cartProductsIds);
+
+  res.status(200).send({
+    productImages: (await productInfo).productImages,
+    productNames: (await productInfo).productsNames,
+    response: response.data.items,
+  });
 };
 
 const addItemToCart = async (req, res) => {
