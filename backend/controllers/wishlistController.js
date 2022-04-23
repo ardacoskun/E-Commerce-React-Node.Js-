@@ -1,7 +1,8 @@
 const axios = require("axios");
+const CartServices = require("../services/CartServices");
 const OutOfStockError = require("../errors/outOfStockError");
 
-const getWishlist = async (req, res, next) => {
+const getWishlist = async (req, res) => {
   const token = req.token;
 
   const config = {
@@ -16,9 +17,16 @@ const getWishlist = async (req, res, next) => {
     config
   );
 
-  res.status(200).json(response.data);
-};
+  const wishlistProducts = await CartServices.getCartProducts(response);
+  const wishlistProductsIds = CartServices.getProductIds(wishlistProducts);
+  const productInfo = CartServices.getProductInfos(wishlistProductsIds);
 
+  res.status(200).send({
+    productImages: (await productInfo).productImages,
+    productNames: (await productInfo).productsNames,
+    response: response.data.items,
+  });
+};
 const addItemToWishlist = async (req, res) => {
   const token = req.token;
 

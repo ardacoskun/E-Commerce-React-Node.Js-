@@ -37,6 +37,8 @@ const initialState = {
   wishlist: [],
   cartImages: [],
   cartNames: [],
+  wishlistImages: [],
+  wishlistNames: [],
 };
 
 const AppContext = createContext();
@@ -123,19 +125,21 @@ const AppProvider = ({ children }) => {
           },
         });
       }
-      // if (endpoint === "wishlist") {
-      //   return dispatch({
-      //     type: GET_WISHLIST_SUCCESS,
-      //     payload: {
-      //       wishlist: ,
-      //     },
-      //   });
-      // }
+      if (endpoint === "wishlist") {
+        return dispatch({
+          type: GET_WISHLIST_SUCCESS,
+          payload: {
+            wishlist: data.response,
+            wishlistImages: data.productImages,
+            wishlistNames: data.productNames,
+          },
+        });
+      }
     } catch (error) {
-      // dispatch({
-      //   type: GET_CART_ERROR,
-      //   payload: { msg: error.response.data.msg },
-      // });
+      dispatch({
+        type: GET_CART_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
     }
   };
 

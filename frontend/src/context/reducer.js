@@ -128,7 +128,9 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       isAlert: false,
-      //wishlist: action.payload,
+      wishlist: action.payload.wishlist,
+      wishlistImages: action.payload.wishlistImages,
+      wishlistNames: action.payload.wishlistNames,
     };
   }
 

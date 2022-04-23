@@ -4,17 +4,27 @@ import WishlistProduct from "../components/WishlistProduct";
 import { useAppContext } from "../context/appContext";
 
 const WishlistPage = () => {
-  const { wishlist, getCart } = useAppContext();
+  const { getCart, wishlist, wishlistImages, wishlistNames, isLoading } =
+    useAppContext();
 
   useEffect(() => {
     getCart("wishlist");
   }, []);
 
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <Row>
       {wishlist.map((product, index) => (
         <Col md={6} lg={4} xl={3} key={index}>
-          <WishlistProduct product={product} />
+          <WishlistProduct
+            product={product}
+            wishlistImages={wishlistImages}
+            wishlistNames={wishlistNames}
+            index={index}
+          />
         </Col>
       ))}
     </Row>
