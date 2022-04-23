@@ -117,7 +117,9 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       isAlert: false,
-      cart: action.payload,
+      cart: action.payload.cart,
+      cartImages: action.payload.cartImages,
+      cartNames: action.payload.cartNames,
     };
   }
 
@@ -126,7 +128,7 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       isAlert: false,
-      wishlist: action.payload,
+      //wishlist: action.payload,
     };
   }
 

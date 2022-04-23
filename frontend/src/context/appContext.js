@@ -35,6 +35,8 @@ const initialState = {
   token: token,
   cart: [],
   wishlist: [],
+  cartImages: [],
+  cartNames: [],
 };
 
 const AppContext = createContext();
@@ -110,11 +112,25 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_CART_START });
     try {
       const { data } = await axios.get(`/${endpoint}`);
+
       if (endpoint === "cart") {
-        dispatch({ type: GET_CART_SUCCESS, payload: data.items });
-      } else {
-        dispatch({ type: GET_WISHLIST_SUCCESS, payload: data.items });
+        return dispatch({
+          type: GET_CART_SUCCESS,
+          payload: {
+            cart: data.response,
+            cartImages: data.productImages,
+            cartNames: data.productNames,
+          },
+        });
       }
+      // if (endpoint === "wishlist") {
+      //   return dispatch({
+      //     type: GET_WISHLIST_SUCCESS,
+      //     payload: {
+      //       wishlist: ,
+      //     },
+      //   });
+      // }
     } catch (error) {
       // dispatch({
       //   type: GET_CART_ERROR,

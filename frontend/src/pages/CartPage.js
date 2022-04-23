@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, ListGroup, Image, Button, Card } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+
 import { useAppContext } from "../context/appContext";
 
 const CartPage = () => {
@@ -13,6 +13,8 @@ const CartPage = () => {
     removeCartItem,
     increaseCartItem,
     decreaseCartItem,
+    cartImages,
+    cartNames,
   } = useAppContext();
 
   const sumOfPrices = [];
@@ -34,98 +36,119 @@ const CartPage = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        Loading...
+      </div>
+    );
   }
 
   return (
     <>
-      {cart.length > 0 ? (
-        <Row>
-          <Col md={8}>
-            <h1>Shopping Cart</h1>
-            {cart.map((item, index) => (
-              <ListGroup variant="flush" key={index}>
-                <ListGroup.Item>
-                  <Row style={{ display: "flex", alignItems: "center" }}>
-                    <Col md={2}>
-                      <Image src="product" alt="product" fluid rounded />
-                    </Col>
-
-                    <Col md={3}>Product Name</Col>
-
-                    <Col md={2}>
-                      <div className="quantity-container">
-                        <span
-                          className="quantity-cursor"
-                          onClick={() =>
-                            increaseCartItem(
-                              item.productId,
-                              item.variant.product_id,
-                              item.quantity,
-                              "cart"
-                            )
-                          }
-                        >
-                          +
-                        </span>
-                        <div className="quantity-amount">{item.quantity}</div>
-                        <span
-                          className="quantity-cursor"
-                          onClick={() =>
-                            decreaseCartItem(
-                              item.productId,
-                              item.variant.product_id,
-                              item.quantity,
-                              "cart"
-                            )
-                          }
-                        >
-                          -
-                        </span>
-                      </div>
-                    </Col>
-
-                    <Col md={2} style={{ fontSize: "20px" }}>
-                      $ ${Number(item.quantity * item.variant.price).toFixed(2)}
-                    </Col>
-
-                    <Col md={2}>
-                      <Button
-                        type="button"
-                        variant="light"
-                        onClick={() =>
-                          removeCartItem(
-                            item.productId,
-                            item.variant.product_id,
-                            "cart"
-                          )
-                        }
-                      >
-                        <i className="fas fa-trash"></i>
-                      </Button>
-                    </Col>
-                  </Row>
-                </ListGroup.Item>
-              </ListGroup>
-            ))}
-          </Col>
-          <Col md={4}>
-            <Card>
-              <ListGroup variant="flush">
-                <ListGroup.Item>
-                  <h2>Total</h2>$ {Number(total).toFixed(2)}
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Button type="button" className="btn-block">
-                    Checkout
-                  </Button>
-                </ListGroup.Item>
-              </ListGroup>
-            </Card>
-          </Col>
-        </Row>
+      {isAlert ? (
+        <h1
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {alertMessage}
+        </h1>
       ) : (
-        <div>Empty Card</div>
+        cart.length > 0 && (
+          <Row>
+            <Col md={8}>
+              <h1>Shopping Cart</h1>
+              {cart.map((item, index) => (
+                <ListGroup variant="flush" key={index}>
+                  <ListGroup.Item>
+                    <Row style={{ display: "flex", alignItems: "center" }}>
+                      <Col md={2} key={index}>
+                        <Image
+                          src={`images/${cartImages[index]}`}
+                          alt="product"
+                          fluid
+                          rounded
+                        />
+                      </Col>
+                      <Col md={3}>{cartNames[index]}</Col>
+                      <Col md={2}>
+                        <div className="quantity-container">
+                          <span
+                            className="quantity-cursor"
+                            onClick={() =>
+                              increaseCartItem(
+                                item.productId,
+                                item.variant.product_id,
+                                item.quantity,
+                                "cart"
+                              )
+                            }
+                          >
+                            +
+                          </span>
+                          <div className="quantity-amount">{item.quantity}</div>
+                          <span
+                            className="quantity-cursor"
+                            onClick={() =>
+                              decreaseCartItem(
+                                item.productId,
+                                item.variant.product_id,
+                                item.quantity,
+                                "cart"
+                              )
+                            }
+                          >
+                            -
+                          </span>
+                        </div>
+                      </Col>
+                      <Col md={2} style={{ fontSize: "20px" }}>
+                        ${Number(item.quantity * item.variant.price).toFixed(2)}
+                      </Col>
+                      <Col md={2}>
+                        <Button
+                          type="button"
+                          variant="light"
+                          onClick={() =>
+                            removeCartItem(
+                              item.productId,
+                              item.variant.product_id,
+                              "cart"
+                            )
+                          }
+                        >
+                          <i className="fas fa-trash"></i>
+                        </Button>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+                </ListGroup>
+              ))}
+            </Col>
+            <Col md={4}>
+              <Card>
+                <ListGroup variant="flush">
+                  <ListGroup.Item>
+                    <h2>Total</h2>$ {Number(total).toFixed(2)}
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Button type="button" className="btn-block">
+                      Checkout
+                    </Button>
+                  </ListGroup.Item>
+                </ListGroup>
+              </Card>
+            </Col>
+          </Row>
+        )
       )}
     </>
   );
