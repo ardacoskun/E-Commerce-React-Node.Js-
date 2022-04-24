@@ -18,6 +18,7 @@ const CartPage = () => {
   } = useAppContext();
 
   const sumOfPrices = [];
+  const orderVariants = [];
   const [total, setTotal] = useState();
 
   useEffect(() => {
@@ -33,6 +34,22 @@ const CartPage = () => {
       sumOfPrices.push(item.quantity * item.variant.price);
     });
     setTotal(sumOfPrices.reduce((acc, curr) => acc + curr, 0));
+  };
+
+  const createOrder = async () => {
+    cart.map((item) => {
+      orderVariants.push(item);
+    });
+
+    const orderInfo = {
+      address: "home",
+      paymentId: "2",
+      items: orderVariants,
+    };
+
+    try {
+      const response = await axios.post("/checkout/orders", orderInfo);
+    } catch (error) {}
   };
 
   if (isLoading) {
@@ -140,7 +157,11 @@ const CartPage = () => {
                     <h2>Total</h2>$ {Number(total).toFixed(2)}
                   </ListGroup.Item>
                   <ListGroup.Item>
-                    <Button type="button" className="btn-block">
+                    <Button
+                      type="button"
+                      className="btn-block"
+                      onClick={createOrder}
+                    >
                       Checkout
                     </Button>
                   </ListGroup.Item>

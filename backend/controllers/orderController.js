@@ -52,9 +52,18 @@ const createOrder = async (req, res) => {
     },
   };
 
+  const { address, paymentId, items } = req.body;
+
+  const orderData = {
+    secretKey: process.env.SECRET_KEY,
+    address,
+    paymentId,
+    items,
+  };
+
   const response = await axios.post(
     `${process.env.BASE_URL}/orders`,
-    req.body,
+    orderData,
     config
   );
   res.status(200).json(response.data);
