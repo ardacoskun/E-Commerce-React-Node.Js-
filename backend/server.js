@@ -30,7 +30,7 @@ app.use("/auth", authRoutes);
 app.use("/cart", authCheck, cartRoutes);
 app.use("/wishlist", authCheck, wishlistRoutes);
 app.use("/", categoryRoutes);
-app.use("/checkout", stripeRoutes);
+app.use("/checkout", authCheck, stripeRoutes);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
