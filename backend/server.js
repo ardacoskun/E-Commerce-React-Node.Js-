@@ -13,6 +13,7 @@ const authRoutes = require("./routes/authRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const wishlistRoutes = require("./routes/wishlistRoutes");
 const stripeRoutes = require("./routes/stripeRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 const notFoundMiddleware = require("./middleware/notFound");
 const errorHandlerMiddleware = require("./middleware/errorHandler");
@@ -29,8 +30,10 @@ app.use(cors());
 app.use("/auth", authRoutes);
 app.use("/cart", authCheck, cartRoutes);
 app.use("/wishlist", authCheck, wishlistRoutes);
-app.use("/", categoryRoutes);
 app.use("/checkout", authCheck, stripeRoutes);
+app.use("/orders", authCheck, orderRoutes);
+app.use("/payment", stripeRoutes);
+app.use("/", categoryRoutes);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

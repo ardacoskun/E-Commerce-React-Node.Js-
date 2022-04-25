@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, ListGroup, Image, Button, Card } from "react-bootstrap";
-
+import axios from "axios";
 import { useAppContext } from "../context/appContext";
+import StripeCheckout from "react-stripe-checkout";
+import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
   const {
@@ -21,6 +23,13 @@ const CartPage = () => {
   const orderVariants = [];
   const [total, setTotal] = useState();
 
+  const [stripeToken, setStripeToken] = useState(null);
+  const navigate = useNavigate();
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+
   useEffect(() => {
     getCart("cart");
   }, []);
@@ -29,6 +38,34 @@ const CartPage = () => {
     getTotalPrice();
   }, [sumOfPrices]);
 
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const { data } = await axios.post("http://localhost:5000/payment", {
+          tokenId: stripeToken.id,
+          amount: total * 100,
+        });
+        const baseAddress = data.billing_details.address;
+
+        const address =
+          baseAddress.city +
+          " " +
+          baseAddress.line1 +
+          " " +
+          baseAddress.postal_code +
+          " ";
+
+        const paymentId = data.id;
+
+        createOrder(address, paymentId);
+        navigate("/");
+      } catch (error) {}
+    };
+    if (stripeToken) {
+      makeRequest();
+    }
+  }, [stripeToken]);
+
   const getTotalPrice = () => {
     cart.map((item) => {
       sumOfPrices.push(item.quantity * item.variant.price);
@@ -36,19 +73,19 @@ const CartPage = () => {
     setTotal(sumOfPrices.reduce((acc, curr) => acc + curr, 0));
   };
 
-  const createOrder = async () => {
+  const createOrder = async (address, paymentId) => {
     cart.map((item) => {
       orderVariants.push(item);
     });
 
     const orderInfo = {
-      address: "home",
-      paymentId: "2",
+      address,
+      paymentId,
       items: orderVariants,
     };
 
     try {
-      const response = await axios.post("/checkout/orders", orderInfo);
+      const response = await axios.post("/orders", orderInfo);
     } catch (error) {}
   };
 
@@ -157,13 +194,18 @@ const CartPage = () => {
                     <h2>Total</h2>$ {Number(total).toFixed(2)}
                   </ListGroup.Item>
                   <ListGroup.Item>
-                    <Button
-                      type="button"
-                      className="btn-block"
-                      onClick={createOrder}
+                    <StripeCheckout
+                      name="OSF FINAL"
+                      image="/images/additional/osf_digital.png"
+                      shippingAddress
+                      billingAddress
+                      description={`Your total is ${total}$`}
+                      amount={total * 100}
+                      token={onToken}
+                      stripeKey={process.env.React_App_STRIPE_KEY}
                     >
-                      Checkout
-                    </Button>
+                      <Button variant="primary">CHECKOUT</Button>
+                    </StripeCheckout>
                   </ListGroup.Item>
                 </ListGroup>
               </Card>

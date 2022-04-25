@@ -14,7 +14,6 @@ import ProfilePage from "./pages/ProfilePage";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import CartPage from "./pages/CartPage";
 import WishlistPage from "./pages/WishlistPage";
-import Payment from "./pages/Payment";
 import OrdersPage from "./pages/OrdersPage";
 const App = () => {
   return (
@@ -61,14 +60,6 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <WishlistPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/payment"
-              element={
-                <ProtectedRoute>
-                  <Payment />
                 </ProtectedRoute>
               }
             />

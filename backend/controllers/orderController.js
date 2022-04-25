@@ -2,8 +2,8 @@ const stripe = require("stripe")(process.env.STRIPE_KEY);
 const axios = require("axios");
 const OrderServices = require("../services/OrderServices");
 
-const payment = (req, res) => {
-  stripe.charges.create(
+const payment = async (req, res) => {
+  await stripe.charges.create(
     {
       source: req.body.tokenId,
       amount: req.body.amount,

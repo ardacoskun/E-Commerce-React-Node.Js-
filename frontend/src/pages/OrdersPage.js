@@ -13,7 +13,8 @@ const OrdersPage = () => {
 
   const getOrdersData = async () => {
     try {
-      const { data } = await axios.get("/checkout/orders");
+      const { data } = await axios.get("/orders");
+
       setOrders(data.allOrders);
       setOrdersTotal(data.subTotal);
       setLoading(false);
