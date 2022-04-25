@@ -38,11 +38,12 @@ const addItemToCart = async (req, res) => {
     },
   };
 
-  if (!req.body.variantId) {
-    throw new OutOfStockError("This item is out of stock.");
-  }
+  const { productId, productAttributes, productVariants, quantity } = req.body;
 
-  const { productId, variantId, quantity } = req.body;
+  const variantId = CartServices.getVariantId(
+    productAttributes,
+    productVariants
+  );
 
   const productData = {
     secretKey: process.env.SECRET_KEY,
@@ -56,10 +57,8 @@ const addItemToCart = async (req, res) => {
     productData,
     config
   );
-
-  res.status(201).json(response.data);
+  res.status(200).json(response.data);
 };
-
 const removeItemFromCart = async (req, res) => {
   const token = req.token;
 

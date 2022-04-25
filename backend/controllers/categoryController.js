@@ -69,15 +69,12 @@ const getProducts = async (req, res) => {
 //GET SINGLE PRODUCT
 const getSingleProduct = async (req, res) => {
   const { productId } = req.params;
-  try {
-    const response = await axios.get(
-      `${process.env.BASE_URL}products/product_search?id=${productId}&secretKey=${process.env.SECRET_KEY}`
-    );
 
-    return await res.json(response.data);
-  } catch (error) {
-    return res.json(error);
-  }
+  const { data } = await axios.get(
+    `${process.env.BASE_URL}products/product_search?id=${productId}&secretKey=${process.env.SECRET_KEY}`
+  );
+
+  return await res.status(200).json(data);
 };
 
 module.exports = {

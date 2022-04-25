@@ -37,11 +37,12 @@ const addItemToWishlist = async (req, res) => {
     },
   };
 
-  if (!req.body.variantId) {
-    throw new OutOfStockError("This item is out of stock.");
-  }
+  const { productId, productAttributes, productVariants, quantity } = req.body;
 
-  const { productId, variantId, quantity } = req.body;
+  const variantId = CartServices.getVariantId(
+    productAttributes,
+    productVariants
+  );
 
   const productData = {
     secretKey: process.env.SECRET_KEY,
@@ -57,7 +58,6 @@ const addItemToWishlist = async (req, res) => {
   );
   res.status(200).json(response.data);
 };
-
 const removeItemFromWishlist = async (req, res) => {
   const token = req.token;
 

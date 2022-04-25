@@ -193,23 +193,25 @@ const AppProvider = ({ children }) => {
     } catch (error) {}
   };
 
-  const addItemToCart = async (productId, variantId, quantity, endpoint) => {
+  const sendProductToCart = async (
+    productId,
+    productAttributes,
+    productVariants,
+    quantity,
+    endpoint
+  ) => {
     dispatch({ type: ADD_CART_ITEM });
     try {
       const productData = {
         productId,
-        variantId,
+        productAttributes,
+        productVariants,
         quantity,
       };
-      const response = await axios.post(`/${endpoint}/addItem`, productData);
 
+      const response = await axios.post(`/${endpoint}/addItem`, productData);
       navigate(`/${endpoint}`);
-    } catch (error) {
-      // dispatch({
-      //   type: ADD_CART_ERROR,
-      //   payload: { msg: error.response.data.msg },
-      // });
-    }
+    } catch (error) {}
   };
 
   return (
@@ -224,7 +226,7 @@ const AppProvider = ({ children }) => {
         removeCartItem,
         increaseCartItem,
         decreaseCartItem,
-        addItemToCart,
+        sendProductToCart,
       }}
     >
       {children}

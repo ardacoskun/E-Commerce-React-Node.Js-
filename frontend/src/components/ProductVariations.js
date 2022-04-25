@@ -6,7 +6,7 @@ const ProductVariations = ({ item, name, handleChange }) => {
       <input
         type="radio"
         id={item.value}
-        value={item.name}
+        value={item.value}
         name={name}
         autoComplete="off"
         className="btn-check"

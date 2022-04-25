@@ -8,19 +8,22 @@ import {
   Card,
   Image,
 } from "react-bootstrap";
-import ProductVariations from "./ProductVariations";
 import { useAppContext } from "../context/appContext";
+import ProductVariations from "./ProductVariations";
 
 const SingleProduct = ({ product }) => {
+  const { sendProductToCart } = useAppContext();
+
   const initialState = {
     color: "",
     size: "",
     width: "",
   };
+
   const [data, setData] = useState(initialState);
   const [count, setCount] = useState(1);
-
-  const { addItemToCart } = useAppContext();
+  const [alert, setAlert] = useState("");
+  const attributeLength = product.variation_attributes.length;
 
   //increase product quantity
   const increase = () => {
@@ -34,71 +37,54 @@ const SingleProduct = ({ product }) => {
     }
   };
 
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.id });
-  };
+  useEffect(() => {
+    setTimeout(() => {
+      setAlert("");
+    }, [2000]);
+  }, [alert]);
 
-  const getVariantId = () => {
-    let variantId = 0;
+  const addProductToCart = (productId, quantity, endpoint) => {
+    if (attributeLength < 1) {
+      return setAlert("Product is not available");
+    }
 
-    const products = product.variants;
-    for (let variant of products) {
+    const variants = product.variants;
+
+    const color = data.color;
+    const size = data.size;
+    const width = data.width;
+
+    for (let variant of variants) {
       const values = variant.variation_values;
-
-      const color = data.color;
-      const size = data.size;
-      const width = data.width;
-
-      if (color.length > 0 && size.length > 0 && width.length > 0) {
-        if (
-          color === values.color &&
-          size === values.size &&
-          width === values.width
-        ) {
-          variantId = variant.product_id;
-        }
-      } else if (color.length <= 0 && size.length > 0 && width.length > 0) {
-        if (
-          size === values.size ||
-          (size === values.accessorySize && width === values.width)
-        ) {
-          variantId = variant.product_id;
-        }
-      } else if (color.length > 0 && size.length > 0 && width.length <= 0) {
-        if (
-          size === values.size ||
-          (size === values.accessorySize && width === values.color)
-        ) {
-          variantId = variant.product_id;
-        }
-      } else if (color.length > 0 && size.length <= 0 && width.length > 0) {
-        if (color === values.color && width === values.color) {
-          variantId = variant.product_id;
-        }
-      } else if (color.length > 0 && size.length <= 0 && width.length <= 0) {
-        if (color === values.color) {
-          variantId = variant.product_id;
-        }
-      } else if (color.length <= 0 && size.length <= 0 && width.length > 0) {
-        if (width === values.width) {
-          variantId = variant.product_id;
-        }
-      } else if (color.length <= 0 && size.length > 0 && width.length <= 0) {
-        if (size === values.size || size === values.accessorySize) {
-          variantId = variant.product_id;
-        }
-      } else {
-        variantId = variant.product_id;
+      if (
+        (values.color && !color) ||
+        (values.size && !size) ||
+        (values.width && !width)
+      ) {
+        return setAlert("Please provide all values");
       }
     }
-    if (variantId === 0) {
-      return false;
-    } else {
-      return variantId;
-    }
+
+    const productAttributes = {
+      color,
+      size,
+      width,
+    };
+
+    const productVariants = product.variants;
+
+    sendProductToCart(
+      productId,
+      productAttributes,
+      productVariants,
+      quantity,
+      endpoint
+    );
   };
 
-  const variantData = getVariantId();
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
 
   return (
     <Row>
@@ -122,8 +108,9 @@ const SingleProduct = ({ product }) => {
             <ListGroupItem>
               <p style={{ fontWeight: "bold" }}>Color</p>
 
-              {product.variation_attributes[0].values.map((item) => (
+              {product.variation_attributes[0].values.map((item, index) => (
                 <ProductVariations
+                  key={index}
                   item={item}
                   name="color"
                   handleChange={handleChange}
@@ -134,8 +121,9 @@ const SingleProduct = ({ product }) => {
           {product.variation_attributes[1] && (
             <ListGroupItem>
               <p style={{ fontWeight: "bold" }}>Size</p>
-              {product.variation_attributes[1].values.map((item) => (
+              {product.variation_attributes[1].values.map((item, index) => (
                 <ProductVariations
+                  key={index}
                   item={item}
                   name="size"
                   handleChange={handleChange}
@@ -147,8 +135,9 @@ const SingleProduct = ({ product }) => {
           {product.variation_attributes[2] && (
             <ListGroupItem>
               <p style={{ fontWeight: "bold" }}>Width</p>
-              {product.variation_attributes[2].values.map((item) => (
+              {product.variation_attributes[2].values.map((item, index) => (
                 <ProductVariations
+                  key={index}
                   item={item}
                   name="width"
                   handleChange={handleChange}
@@ -167,13 +156,17 @@ const SingleProduct = ({ product }) => {
             <b>
               {product.currency} {product.price}{" "}
             </b>
-            <Button
-              onClick={() =>
-                addItemToCart(product.id, variantData, count, "wishlist")
-              }
-            >
-              <i className="fas fa-heart"></i> Add to Wishlist
-            </Button>
+            {attributeLength < 1 ? (
+              <Button variant="dark" disabled>
+                <i className="fas fa-heart"></i> Add to Wishlist
+              </Button>
+            ) : (
+              <Button
+                onClick={() => addProductToCart(product.id, count, "wishlist")}
+              >
+                <i className="fas fa-heart"></i> Add to Wishlist
+              </Button>
+            )}
           </ListGroup.Item>
         </ListGroup>
       </Col>
@@ -206,18 +199,23 @@ const SingleProduct = ({ product }) => {
               </Row>
             </ListGroup.Item>
             <ListGroup.Item>
-              <Button
-                className="w-100"
-                type="button"
-                onClick={() =>
-                  addItemToCart(product.id, variantData, count, "cart")
-                }
-              >
-                Add To Cart
-              </Button>
+              {attributeLength < 1 ? (
+                <Button className="w-100" type="button" disabled variant="dark">
+                  Add To Cart
+                </Button>
+              ) : (
+                <Button
+                  className="w-100"
+                  type="button"
+                  onClick={() => addProductToCart(product.id, count, "cart")}
+                >
+                  Add To Cart
+                </Button>
+              )}
             </ListGroup.Item>
           </ListGroup>
         </Card>
+        {alert && <b style={{ color: "red" }}>{alert}</b>}
       </Col>
     </Row>
   );
