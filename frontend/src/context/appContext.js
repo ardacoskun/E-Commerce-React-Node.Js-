@@ -176,8 +176,8 @@ const AppProvider = ({ children }) => {
   const decreaseCartItem = async (productId, variantId, quantity, endpoint) => {
     dispatch({ type: DECREASE_CART_ITEM });
 
-    if (quantity <= 0) {
-      return removeCartItem(productId, variantId);
+    if (quantity < 1) {
+      return removeCartItem(productId, variantId, endpoint);
     }
     quantity = quantity - 1;
 

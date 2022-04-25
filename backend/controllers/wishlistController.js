@@ -83,7 +83,7 @@ const removeItemFromWishlist = async (req, res) => {
     headers: config.headers,
   });
 
-  res.status(202).json({ msg: "Item removed from the cart" });
+  res.status(202).json({ msg: "Item removed from the wishlist" });
 };
 
 const changeQuantityOfWishlistItem = async (req, res) => {
