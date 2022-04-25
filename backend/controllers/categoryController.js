@@ -1,4 +1,5 @@
 const axios = require("axios");
+const CategoryServices = require("../services/CategoryServices");
 
 //GET ALL CATEGORIES
 const getAllCategories = async (req, res) => {
@@ -17,7 +18,7 @@ const getRootCategories = async (req, res) => {
     `${process.env.BASE_URL}categories/${parentId}?secretKey=${process.env.SECRET_KEY}`
   );
 
-  return await res.json(data);
+  return await res.status(200).json(data);
 };
 
 //GET PARENT CATEGORIES
@@ -27,7 +28,10 @@ const getParentCategories = async (req, res) => {
   const { data } = await axios.get(
     `${process.env.BASE_URL}categories/parent/${parentId}?secretKey=${process.env.SECRET_KEY}`
   );
-  return await res.json(data);
+
+  const categories = CategoryServices.checkImage(data);
+
+  return await res.status(200).json(data);
 };
 
 //GET SUBCATEGORIES
@@ -37,7 +41,10 @@ const getSubCategories = async (req, res) => {
   const { data } = await axios.get(
     `${process.env.BASE_URL}categories/parent/${parentId}-${subcategoryId}?secretKey=${process.env.SECRET_KEY}`
   );
-  return await res.json(data);
+
+  const categories = CategoryServices.checkImage(data);
+
+  return await res.status(200).json(data);
 };
 
 //GET PRODUCTS
@@ -47,7 +54,10 @@ const getProducts = async (req, res) => {
   const { data } = await axios.get(
     `${process.env.BASE_URL}products/product_search?primary_category_id=${productCategoryId}&secretKey=${process.env.SECRET_KEY}`
   );
-  return await res.json(data);
+
+  const categories = CategoryServices.checkImage(data);
+
+  return await res.status(200).json(data);
 };
 
 //GET SINGLE PRODUCT
