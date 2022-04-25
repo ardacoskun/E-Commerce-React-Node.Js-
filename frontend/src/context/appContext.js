@@ -210,8 +210,14 @@ const AppProvider = ({ children }) => {
       };
 
       const response = await axios.post(`/${endpoint}/addItem`, productData);
-      navigate(`/${endpoint}`);
-    } catch (error) {}
+      alert(`The product has been added to your ${endpoint}. `);
+    } catch (error) {
+      dispatch({
+        type: GET_CART_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+      alert(error.response.data.msg);
+    }
   };
 
   return (

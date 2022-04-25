@@ -4,6 +4,7 @@ import axios from "axios";
 import { useAppContext } from "../context/appContext";
 import StripeCheckout from "react-stripe-checkout";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const CartPage = () => {
   const {
@@ -105,16 +106,18 @@ const CartPage = () => {
 
   return (
     <>
-      {isAlert ? (
-        <h1
+      {isAlert && alertMessage.includes("created") ? (
+        <div
           style={{
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
           }}
         >
-          {alertMessage}
-        </h1>
+          <h1>There are no items in your cart.</h1>
+          <Link to="/">Start Shopping</Link>
+        </div>
       ) : (
         cart.length > 0 && (
           <Row>

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import WishlistProduct from "../components/WishlistProduct";
 import { useAppContext } from "../context/appContext";
+import { Link } from "react-router-dom";
 
 const WishlistPage = () => {
   const {
@@ -24,16 +25,18 @@ const WishlistPage = () => {
 
   return (
     <>
-      {isAlert ? (
-        <h1
+      {isAlert && alertMessage.includes("created") ? (
+        <div
           style={{
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
           }}
         >
-          {alertMessage}
-        </h1>
+          <h1>There are no items in your wishlist.</h1>
+          <Link to="/">Start Shopping</Link>
+        </div>
       ) : (
         wishlist.length > 0 && (
           <Row>

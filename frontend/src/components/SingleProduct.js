@@ -59,6 +59,7 @@ const SingleProduct = ({ product }) => {
       if (
         (values.color && !color) ||
         (values.size && !size) ||
+        (values.accessorySize && !size) ||
         (values.width && !width)
       ) {
         return setAlert("Please provide all values");

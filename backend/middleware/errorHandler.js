@@ -9,7 +9,9 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     defaultError.msg = err.response.data.error;
   }
 
-  res.status(defaultError.statusCode).json({ msg: defaultError.msg });
+  res
+    .status(defaultError.statusCode)
+    .json({ msg: defaultError.msg, statusCode: defaultError.statusCode });
 };
 
 module.exports = errorHandlerMiddleware;
