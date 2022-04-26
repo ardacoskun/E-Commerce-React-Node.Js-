@@ -11,8 +11,8 @@ beforeAll(async () => {
   token = response.body.token;
 });
 
-describe("Cart Tests", () => {
-  test("Should add item to cart for current user", async () => {
+describe("Wishlist Tests", () => {
+  test("Should add item to wishlist for current user", async () => {
     const productAttributes = { color: "GUAVAFB", size: "", width: "" };
     const productVariants = [
       {
@@ -24,7 +24,7 @@ describe("Cart Tests", () => {
     ];
 
     await request(app)
-      .post("/cart/addItem")
+      .post("/wishlist/addItem")
       .set("Authorization", `Bearer ${token}`)
       .send({
         productId: "25594785",
@@ -35,16 +35,16 @@ describe("Cart Tests", () => {
       .expect(201);
   });
 
-  test("Should get cart for current user", async () => {
+  test("Should get wishlist for current user", async () => {
     await request(app)
-      .get("/cart")
+      .get("/wishlist")
       .set("Authorization", `Bearer ${token}`)
       .expect(200);
   });
 
-  test("Should change quantity of cart item", async () => {
+  test("Should change quantity of wishlist item", async () => {
     await request(app)
-      .post("/cart/changeItemQuantity")
+      .post("/wishlist/changeItemQuantity")
       .set("Authorization", `Bearer ${token}`)
       .send({
         productId: "25594785",
@@ -54,9 +54,9 @@ describe("Cart Tests", () => {
       .expect(202);
   });
 
-  test("Should remove item from cart", async () => {
+  test("Should remove item from wishlist", async () => {
     await request(app)
-      .delete("/cart/removeItem")
+      .delete("/wishlist/removeItem")
       .set("Authorization", `Bearer ${token}`)
       .send({
         productId: "25594785",
