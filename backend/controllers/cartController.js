@@ -111,7 +111,7 @@ const changeQuantityOfItem = async (req, res) => {
     productData,
     config
   );
-  res.status(200).json(response.data);
+  res.status(202).json(response.data);
 };
 
 module.exports = {
