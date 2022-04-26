@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import "./bootstrap.min.css";
 import "./index.css";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { AppProvider } from "./context/appContext";
 
@@ -17,5 +16,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
-
-reportWebVitals();

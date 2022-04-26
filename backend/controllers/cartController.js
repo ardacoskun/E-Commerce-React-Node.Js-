@@ -57,7 +57,7 @@ const addItemToCart = async (req, res) => {
     productData,
     config
   );
-  res.status(200).json(response.data);
+  res.status(201).json(response.data);
 };
 const removeItemFromCart = async (req, res) => {
   const token = req.token;
