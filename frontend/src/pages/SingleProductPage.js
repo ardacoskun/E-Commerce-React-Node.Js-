@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import SingleProduct from "../components/SingleProduct";
+import Loading from "../components/Loading";
 
 const SingleProductPage = () => {
   const [product, setProduct] = useState([]);
@@ -21,11 +22,8 @@ const SingleProductPage = () => {
 
     setLoading(false);
   };
-  return (
-    <>
-      {loading ? <div>Loading .... </div> : <SingleProduct product={product} />}
-    </>
-  );
+
+  return <>{loading ? <Loading /> : <SingleProduct product={product} />}</>;
 };
 
 export default SingleProductPage;

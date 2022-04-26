@@ -3,6 +3,7 @@ import { Col, Row } from "react-bootstrap";
 import WishlistProduct from "../components/WishlistProduct";
 import { useAppContext } from "../context/appContext";
 import { Link } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const WishlistPage = () => {
   const {
@@ -20,7 +21,7 @@ const WishlistPage = () => {
   }, []);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (

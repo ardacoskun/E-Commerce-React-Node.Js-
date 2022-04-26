@@ -3,8 +3,10 @@ import { Row, Col } from "react-bootstrap";
 import axios from "axios";
 import ParentCategories from "../components/ParentCategories";
 import { useParams } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const CategoryPage = () => {
+  const [loading, setLoading] = useState(true);
   const [rootCategories, setRootCategories] = useState([]);
   const [parentCategories, setParentCategories] = useState([]);
   const { parentId } = useParams();
@@ -23,7 +25,12 @@ const CategoryPage = () => {
         setParentCategories(allData[1].data);
       })
     );
+    setLoading(false);
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>

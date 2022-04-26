@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const returnItemsFromRequest = (request) => {
+const returnItemsFromRequest = async (request) => {
   const allProducts = request.data;
   return allProducts;
 };
@@ -41,7 +41,7 @@ const getOrderDetail = async (orders) => {
   return allOrders;
 };
 
-const getTotalPrice = (orders) => {
+const getTotalPrice = async (orders) => {
   const subTotal = [];
   const allPrices = [];
   for (let order of orders) {

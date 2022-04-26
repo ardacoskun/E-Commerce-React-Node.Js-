@@ -3,21 +3,29 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Col, Row } from "react-bootstrap";
 import Products from "../components/Products.js";
+import Loading from "../components/Loading.js";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { parentId, subcategoryId, productCategoryId } = useParams();
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [loading]);
 
   const getProducts = async () => {
     const { data } = await axios.get(
       `/${parentId}/${subcategoryId}/${productCategoryId}`
     );
     setProducts(data);
+    setLoading(false);
   };
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <Row>

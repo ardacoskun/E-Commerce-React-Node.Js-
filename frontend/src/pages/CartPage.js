@@ -5,6 +5,7 @@ import { useAppContext } from "../context/appContext";
 import StripeCheckout from "react-stripe-checkout";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const CartPage = () => {
   const {
@@ -86,22 +87,21 @@ const CartPage = () => {
     };
 
     try {
-      const response = await axios.post("/orders", orderInfo);
+      const token = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await axios.post("/orders", orderInfo, config);
     } catch (error) {}
   };
 
   if (isLoading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        Loading...
-      </div>
-    );
+    return <Loading />;
   }
 
   return (

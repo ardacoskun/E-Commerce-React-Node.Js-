@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
+import Loading from "../components/Loading";
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
@@ -13,7 +14,16 @@ const OrdersPage = () => {
 
   const getOrdersData = async () => {
     try {
-      const { data } = await axios.get("/orders");
+      const token = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axios.get("/orders", config);
 
       setOrders(data.allOrders);
       setOrdersTotal(data.subTotal);
@@ -22,7 +32,7 @@ const OrdersPage = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (

@@ -18,12 +18,12 @@ const getCart = async (req, res) => {
   );
 
   const cartProducts = await CartServices.getCartProducts(response);
-  const cartProductsIds = CartServices.getProductIds(cartProducts);
-  const productInfo = CartServices.getProductInfos(cartProductsIds);
+  const cartProductsIds = await CartServices.getProductIds(cartProducts);
+  const productInfo = await CartServices.getProductInfos(cartProductsIds);
 
   res.status(200).send({
-    productImages: (await productInfo).productImages,
-    productNames: (await productInfo).productsNames,
+    productImages: productInfo.productImages,
+    productNames: productInfo.productsNames,
     response: response.data.items,
   });
 };
@@ -40,7 +40,7 @@ const addItemToCart = async (req, res) => {
 
   const { productId, productAttributes, productVariants, quantity } = req.body;
 
-  const variantId = CartServices.getVariantId(
+  const variantId = await CartServices.getVariantId(
     productAttributes,
     productVariants
   );

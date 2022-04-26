@@ -33,13 +33,11 @@ const getOrders = async (req, res) => {
     config
   );
 
-  const orders = OrderServices.returnItemsFromRequest(response);
-  const allOrders = OrderServices.getOrderDetail(orders);
-  const totalOrderPrice = OrderServices.getTotalPrice(orders);
+  const orders = await OrderServices.returnItemsFromRequest(response);
+  const allOrders = await OrderServices.getOrderDetail(orders);
+  const totalOrderPrice = await OrderServices.getTotalPrice(orders);
 
-  res
-    .status(200)
-    .send({ orders, allOrders: await allOrders, subTotal: totalOrderPrice });
+  res.status(200).send({ orders, allOrders, subTotal: totalOrderPrice });
 };
 
 const createOrder = async (req, res) => {

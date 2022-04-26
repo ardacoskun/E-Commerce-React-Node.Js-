@@ -46,6 +46,13 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${state.token}`,
+    },
+  };
+
   const navigate = useNavigate();
 
   const displayAlert = () => {
@@ -73,7 +80,14 @@ const AppProvider = ({ children }) => {
     dispatch({ type: REGISTER_START });
 
     try {
-      const response = await axios.post("/auth/register", newUser);
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${state.token}`,
+        },
+      };
+
+      const response = await axios.post("/auth/register", newUser, config);
       const { user, token } = response.data;
 
       dispatch({ type: REGISTER_SUCCESS, payload: { user, token } });
@@ -90,7 +104,14 @@ const AppProvider = ({ children }) => {
   const login = async (currentUser) => {
     dispatch({ type: LOGIN_START });
     try {
-      const response = await axios.post("/auth/login", currentUser);
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${state.token}`,
+        },
+      };
+
+      const response = await axios.post("/auth/login", currentUser, config);
       const { user, token } = response.data;
 
       dispatch({ type: LOGIN_SUCCESS, payload: { user, token } });
@@ -113,7 +134,7 @@ const AppProvider = ({ children }) => {
   const getCart = async (endpoint) => {
     dispatch({ type: GET_CART_START });
     try {
-      const { data } = await axios.get(`/${endpoint}`);
+      const { data } = await axios.get(`/${endpoint}`, config);
 
       if (endpoint === "cart") {
         return dispatch({
@@ -153,6 +174,7 @@ const AppProvider = ({ children }) => {
           productId,
           variantId,
         },
+        headers: { Authorization: `Bearer ${state.token}` },
       });
       getCart(endpoint);
     } catch (error) {}
@@ -168,7 +190,7 @@ const AppProvider = ({ children }) => {
         variantId,
         quantity,
       };
-      await axios.post(`/${endpoint}/changeItemQuantity`, productData);
+      await axios.post(`/${endpoint}/changeItemQuantity`, productData, config);
       getCart(endpoint);
     } catch (error) {}
   };
@@ -187,7 +209,7 @@ const AppProvider = ({ children }) => {
         variantId,
         quantity,
       };
-      await axios.post(`/${endpoint}/changeItemQuantity`, productData);
+      await axios.post(`/${endpoint}/changeItemQuantity`, productData, config);
 
       getCart(endpoint);
     } catch (error) {}
@@ -209,7 +231,11 @@ const AppProvider = ({ children }) => {
         quantity,
       };
 
-      const response = await axios.post(`/${endpoint}/addItem`, productData);
+      const response = await axios.post(
+        `/${endpoint}/addItem`,
+        productData,
+        config
+      );
       alert(`The product has been added to your ${endpoint}. `);
     } catch (error) {
       dispatch({
