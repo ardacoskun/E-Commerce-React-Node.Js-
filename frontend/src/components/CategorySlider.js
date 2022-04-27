@@ -10,7 +10,7 @@ const CategorySlider = () => {
   ];
 
   return (
-    <Carousel pause="hover" className="bg-dark">
+    <Carousel pause="hover" className="bg-dark" style={{ marginTop: "20px" }}>
       {data.map((item, index) => (
         <Carousel.Item key={index}>
           <Image

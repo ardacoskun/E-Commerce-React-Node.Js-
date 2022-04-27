@@ -14,6 +14,7 @@ const cartRoutes = require("./routes/cartRoutes");
 const wishlistRoutes = require("./routes/wishlistRoutes");
 const stripeRoutes = require("./routes/stripeRoutes");
 const orderRoutes = require("./routes/orderRoutes");
+const searchRoutes = require("./routes/searchRoutes");
 
 const notFoundMiddleware = require("./middleware/notFound");
 const errorHandlerMiddleware = require("./middleware/errorHandler");
@@ -33,6 +34,7 @@ app.use("/wishlist", authCheck, wishlistRoutes);
 app.use("/checkout", authCheck, stripeRoutes);
 app.use("/orders", authCheck, orderRoutes);
 app.use("/payment", stripeRoutes);
+app.use("/search", searchRoutes);
 app.use("/", categoryRoutes);
 
 app.use(notFoundMiddleware);

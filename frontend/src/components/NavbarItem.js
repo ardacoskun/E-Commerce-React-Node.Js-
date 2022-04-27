@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useAppContext } from "../context/appContext";
+import Search from "./Search";
 
 const NavbarItem = () => {
   const { user, logout } = useAppContext();
@@ -14,6 +15,7 @@ const NavbarItem = () => {
             <Navbar.Brand>OSF Digital</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Search />
           <Navbar.Collapse className="justify-content-end">
             <Nav className="ml-auto">
               <NavDropdown title="Categories" id="basic-nav-dropdown">

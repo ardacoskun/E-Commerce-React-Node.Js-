@@ -15,6 +15,8 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 import CartPage from "./pages/CartPage";
 import WishlistPage from "./pages/WishlistPage";
 import OrdersPage from "./pages/OrdersPage";
+import SearchPage from "./pages/SearchPage";
+
 const App = () => {
   return (
     <>
@@ -24,6 +26,7 @@ const App = () => {
         <Container>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/search/:keyword" element={<SearchPage />} />
             <Route path="/:parentId" element={<CategoryPage />} />
             <Route
               path="/:parentId/:subcategoryId"
