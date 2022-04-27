@@ -20,7 +20,12 @@ const SearchPage = () => {
       const { data } = await axios.get(`/search/?keyword=${keyword}`);
       setProducts(data);
       setLoading(false);
-    } catch (error) {}
+    } catch (error) {
+      if (error.response.data.statusCode) {
+        setAlert(error.response.data.msg);
+      }
+      setLoading(false);
+    }
   };
 
   if (loading) {
@@ -38,8 +43,7 @@ const SearchPage = () => {
             justifyContent: "center",
           }}
         >
-          <h1>There are no items in your wishlist.</h1>
-          <Link to="/">Start Shopping</Link>
+          <h1>{alert}</h1>
         </div>
       ) : (
         products.length > 0 && (

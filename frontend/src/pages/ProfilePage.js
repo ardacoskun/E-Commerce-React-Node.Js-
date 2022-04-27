@@ -1,10 +1,35 @@
-import React from "react";
-import { Form, Col, Row } from "react-bootstrap";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Form, Col, Row, Button, Badge } from "react-bootstrap";
 import FormGroup from "../components/FormGroup";
 import { useAppContext } from "../context/appContext";
 
 const ProfilePage = () => {
   const { user } = useAppContext();
+  const [cartCount, setCartCount] = useState(0);
+  const [wishlistCount, setWishlistCount] = useState(0);
+  const [loding, setLoading] = useState(true);
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  const getUserInfo = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axios.get("/profile", config);
+      setCartCount(data.cartCount.length);
+      setWishlistCount(data.wishlistCount.length);
+    } catch (error) {}
+  };
 
   return (
     <Col
@@ -33,17 +58,20 @@ const ProfilePage = () => {
           disabled={true}
           labelName="Email"
         />
-
-        <Form.Group controlId="address" className="mb-3">
-          <Form.Label>Ship Address</Form.Label>
-          <Form.Control
-            as="textarea"
-            type="text"
-            value="3 Linda Street
-        Hackettstown, NJ 07840"
-            disabled={true}
-          ></Form.Control>
-        </Form.Group>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
+          }}
+        >
+          <Button variant="dark">
+            Cart <Badge bg="danger">{cartCount}</Badge>
+          </Button>
+          <Button variant="danger">
+            Wishlist <Badge bg="dark">{wishlistCount}</Badge>
+          </Button>
+        </div>
       </Form>
     </Col>
   );

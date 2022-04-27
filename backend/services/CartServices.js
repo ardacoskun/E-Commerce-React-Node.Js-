@@ -1,7 +1,7 @@
 const axios = require("axios");
 const OutOfStockError = require("../errors/outOfStockError");
 
-const getCartProducts = async (request) => {
+const getCartProducts = (request) => {
   const products = request.data.items;
   return products;
 };
@@ -19,18 +19,18 @@ const getProductInfos = async (productsIds) => {
   const productsNames = [];
   const productImages = [];
   for (let productId of productsIds) {
-    const response = await axios.get(
+    const { data } = await axios.get(
       `${process.env.BASE_URL}products/product_search?id=${productId}&secretKey=${process.env.SECRET_KEY}`
     );
 
-    productsNames.push(response.data[0].name);
-    productImages.push(response.data[0].image_groups[0].images[0].link);
+    productsNames.push(data[0].name);
+    productImages.push(data[0].image_groups[0].images[0].link);
   }
 
   return { productsNames, productImages };
 };
 
-const getVariantId = async (productAttributes, productVariants) => {
+const getVariantId = (productAttributes, productVariants) => {
   let variantId = 0;
   const color = productAttributes.color;
   const size = productAttributes.size;
