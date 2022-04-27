@@ -8,7 +8,7 @@ const BreadCrumbs = () => {
   const pathNames = location.pathname.split("/").filter((item) => item);
   return (
     <>
-      <Breadcrumb>
+      <Breadcrumb style={{ margin: "10px" }}>
         {pathNames.length > 0 ? (
           <LinkContainer to="/">
             <Breadcrumb.Item>HOME</Breadcrumb.Item>

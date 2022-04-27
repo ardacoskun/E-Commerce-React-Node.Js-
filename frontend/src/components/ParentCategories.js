@@ -8,9 +8,8 @@ const ParentCategories = ({ category }) => {
   return (
     <>
       <Card className="my-3 p-3 rounded text-center">
-        <a href={`category/${category._id}`}>
-          <Card.Img src={`/images/${category.image}`} variant="top" />
-        </a>
+        <Card.Img src={`/images/${category.image}`} variant="top" />
+
         <Card.Text>{category.name}</Card.Text>
         <Card.Body className="text-center">
           <Card.Text>{category.page_description}</Card.Text>
@@ -20,7 +19,7 @@ const ParentCategories = ({ category }) => {
               navigate(`/${parentId}/${category.name.toLowerCase()}`)
             }
           >
-            View Products
+            View Categories
           </Button>
         </Card.Body>
       </Card>

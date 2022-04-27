@@ -57,7 +57,6 @@ const RegisterPage = () => {
       <h4 className="register-header">
         {values.isMember ? "Sign In" : "Register"}
       </h4>
-
       {isAlert && <Alerts />}
 
       {!values.isMember && (
@@ -83,6 +82,7 @@ const RegisterPage = () => {
       <Button variant="primary" type="submit" disabled={isLoading}>
         {values.isMember ? "Sign In" : "Register"}
       </Button>
+
       <div className="form-undertext">
         {values.isMember ? (
           <Form.Text className="text-muted">

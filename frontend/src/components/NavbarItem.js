@@ -9,7 +9,7 @@ const NavbarItem = () => {
 
   return (
     <header>
-      <Navbar bg="primary" variant="dark" expand="lg" collapseOnSelect>
+      <Navbar bg="danger" variant="dark" expand="lg" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>OSF Digital</Navbar.Brand>
@@ -18,25 +18,28 @@ const NavbarItem = () => {
           <Search />
           <Navbar.Collapse className="justify-content-end">
             <Nav className="ml-auto">
-              <NavDropdown title="Categories" id="basic-nav-dropdown">
-                <LinkContainer to="/mens">
-                  <NavDropdown.Item>Mens</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/womens">
-                  <NavDropdown.Item>Womens</NavDropdown.Item>
-                </LinkContainer>
-              </NavDropdown>
+              <LinkContainer to="/mens">
+                <Nav.Link>Mens</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/womens">
+                <Nav.Link>Womens</Nav.Link>
+              </LinkContainer>
 
-              <LinkContainer to="/wishlist">
-                <Nav.Link>
-                  <i className="fas fa-heart"></i> Wishlist
-                </Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/cart">
-                <Nav.Link>
-                  <i className="fas fa-shopping-cart"></i> Cart
-                </Nav.Link>
-              </LinkContainer>
+              {user && (
+                <>
+                  <LinkContainer to="/wishlist">
+                    <Nav.Link>
+                      <i className="fas fa-heart"></i> Wishlist
+                    </Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/cart">
+                    <Nav.Link>
+                      <i className="fas fa-shopping-cart"></i> Cart
+                    </Nav.Link>
+                  </LinkContainer>
+                </>
+              )}
+
               {user ? (
                 <NavDropdown title={user.name} id="basic-nav-dropdown">
                   <LinkContainer to="/profile">

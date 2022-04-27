@@ -12,7 +12,7 @@ const ProductsPage = () => {
 
   useEffect(() => {
     getProducts();
-  }, [loading]);
+  }, [productCategoryId]);
 
   const getProducts = async () => {
     const { data } = await axios.get(
