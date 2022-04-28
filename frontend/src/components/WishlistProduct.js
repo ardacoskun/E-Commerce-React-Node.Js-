@@ -11,8 +11,14 @@ const WishlistProduct = ({
   wishlistSizes,
   wishlistWidths,
 }) => {
-  const { removeCartItem, addItemToCart, increaseCartItem, decreaseCartItem } =
-    useAppContext();
+  const {
+    removeCartItem,
+    sendProductToCart,
+    increaseCartItem,
+    decreaseCartItem,
+  } = useAppContext();
+
+  const addProductToCart = () => {};
 
   return (
     <Card className="my-3 p-3 rounded ">
@@ -25,7 +31,7 @@ const WishlistProduct = ({
         <Card.Title as="div">
           <b>{wishlistNames[index]}</b>
         </Card.Title>
-        <Row className="my-3">
+        <Row className="my-auto">
           <div
             style={{
               display: "flex",
@@ -100,7 +106,14 @@ const WishlistProduct = ({
           >
             Remove{" "}
           </Button>
-          <Button variant="primary">Add to Cart </Button>
+          <Button
+            variant="primary"
+            onClick={() =>
+              addProductToCart(product.id, product.quantity, "cart")
+            }
+          >
+            Add to Cart{" "}
+          </Button>
         </Row>
       </Card.Body>
     </Card>

@@ -134,8 +134,19 @@ const getVariantWidths = (allCartProducts, cartProductsVariants) => {
   return allWidths;
 };
 
-const getVariantId = (productAttributes, productVariants) => {
+const getSingleProductVariants = async (productId) => {
+  const { data } = await axios.get(
+    `${process.env.BASE_URL}products/product_search?id=${productId}&secretKey=${process.env.SECRET_KEY}`
+  );
+
+  const variants = data[0].variants;
+
+  return variants;
+};
+
+const findVariantId = (productVariants, productAttributes) => {
   let variantId = 0;
+
   const color = productAttributes.color;
   const size = productAttributes.size;
   const width = productAttributes.width;
@@ -179,12 +190,13 @@ const getVariantId = (productAttributes, productVariants) => {
 };
 module.exports = {
   getProductIds,
-  getVariantId,
   getCartProducts,
+  findVariantId,
   cartProductsVariantsId,
   getVariantColors,
   getVariantSizes,
   getVariantWidths,
   getProductNames,
   getProductImages,
+  getSingleProductVariants,
 };

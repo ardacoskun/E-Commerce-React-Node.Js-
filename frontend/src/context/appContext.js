@@ -230,17 +230,23 @@ const AppProvider = ({ children }) => {
   const sendProductToCart = async (
     productId,
     productAttributes,
-    productVariants,
     quantity,
     endpoint
   ) => {
     dispatch({ type: ADD_CART_ITEM });
     try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${state.token}`,
+        },
+      };
+
       const productData = {
         productId,
         productAttributes,
-        productVariants,
         quantity,
+        endpoint,
       };
 
       await axios.post(`/${endpoint}/addItem`, productData, config);

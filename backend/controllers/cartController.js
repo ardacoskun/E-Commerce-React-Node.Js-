@@ -55,11 +55,15 @@ const addItemToCart = async (req, res) => {
     },
   };
 
-  const { productId, productAttributes, productVariants, quantity } = req.body;
+  const { productId, quantity, productAttributes, endpoint } = req.body;
 
-  const variantId = await CartServices.getVariantId(
-    productAttributes,
-    productVariants
+  const productVariants = await CartServices.getSingleProductVariants(
+    productId
+  );
+
+  const variantId = CartServices.findVariantId(
+    productVariants,
+    productAttributes
   );
 
   const productData = {
@@ -69,12 +73,13 @@ const addItemToCart = async (req, res) => {
     quantity,
   };
 
-  const response = await axios.post(
-    `${process.env.BASE_URL}/cart/addItem`,
+  const { data } = await axios.post(
+    `${process.env.BASE_URL}/${endpoint}/addItem`,
     productData,
     config
   );
-  res.status(201).json(response.data);
+
+  res.status(201).send(data);
 };
 
 const removeItemFromCart = async (req, res) => {

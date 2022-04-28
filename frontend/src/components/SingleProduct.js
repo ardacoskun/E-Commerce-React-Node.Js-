@@ -72,15 +72,7 @@ const SingleProduct = ({ product }) => {
       width,
     };
 
-    const productVariants = product.variants;
-
-    sendProductToCart(
-      productId,
-      productAttributes,
-      productVariants,
-      quantity,
-      endpoint
-    );
+    sendProductToCart(productId, productAttributes, quantity, endpoint);
   };
 
   const handleChange = (e) => {
@@ -158,7 +150,7 @@ const SingleProduct = ({ product }) => {
               {product.currency} {product.price}{" "}
             </b>
             {attributeLength < 1 ? (
-              <Button variant="dark" disabled>
+              <Button variant="danger" disabled>
                 <i className="fas fa-heart"></i> Add to Wishlist
               </Button>
             ) : (
