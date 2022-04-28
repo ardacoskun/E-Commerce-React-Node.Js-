@@ -62,13 +62,16 @@ const addItemToWishlist = async (req, res) => {
     },
   };
 
-  const { productId, productAttributes, productVariants, quantity } = req.body;
+  const { productId, quantity, productAttributes, endpoint } = req.body;
 
-  const variantId = CartServices.getVariantId(
-    productAttributes,
-    productVariants
+  const productVariants = await CartServices.getSingleProductVariants(
+    productId
   );
 
+  const variantId = CartServices.findVariantId(
+    productVariants,
+    productAttributes
+  );
   const productData = {
     secretKey: process.env.SECRET_KEY,
     productId,
@@ -76,12 +79,12 @@ const addItemToWishlist = async (req, res) => {
     quantity,
   };
 
-  const response = await axios.post(
-    `${process.env.BASE_URL}/wishlist/addItem`,
+  const { data } = await axios.post(
+    `${process.env.BASE_URL}/${endpoint}/addItem`,
     productData,
     config
   );
-  res.status(201).json(response.data);
+  res.status(201).send(data);
 };
 const removeItemFromWishlist = async (req, res) => {
   const token = req.token;

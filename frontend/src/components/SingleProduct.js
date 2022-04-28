@@ -150,11 +150,12 @@ const SingleProduct = ({ product }) => {
               {product.currency} {product.price}{" "}
             </b>
             {attributeLength < 1 ? (
-              <Button variant="danger" disabled>
+              <Button variant="dark" disabled>
                 <i className="fas fa-heart"></i> Add to Wishlist
               </Button>
             ) : (
               <Button
+                variant="danger"
                 onClick={() => addProductToCart(product.id, count, "wishlist")}
               >
                 <i className="fas fa-heart"></i> Add to Wishlist
