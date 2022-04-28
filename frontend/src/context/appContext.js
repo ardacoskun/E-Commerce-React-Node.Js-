@@ -40,6 +40,9 @@ const initialState = {
   colors: [],
   sizes: [],
   widths: [],
+  wishlistColors: [],
+  wishlistSizes: [],
+  wishlistWidths: [],
   wishlistImages: [],
   wishlistNames: [],
 };
@@ -156,9 +159,12 @@ const AppProvider = ({ children }) => {
         return dispatch({
           type: GET_WISHLIST_SUCCESS,
           payload: {
-            wishlist: data.cartProducts,
+            wishlist: data.wishlistProducts,
             wishlistImages: data.productImages,
             wishlistNames: data.productNames,
+            wishlistColors: data.colors,
+            wishlistSizes: data.sizes,
+            wishlistWidths: data.widths,
           },
         });
       }

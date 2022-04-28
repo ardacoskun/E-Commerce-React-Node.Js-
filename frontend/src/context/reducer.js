@@ -132,6 +132,9 @@ const reducer = (state, action) => {
       wishlist: action.payload.wishlist,
       wishlistImages: action.payload.wishlistImages,
       wishlistNames: action.payload.wishlistNames,
+      wishlistColors: action.payload.wishlistColors,
+      wishlistSizes: action.payload.wishlistSizes,
+      wishlistWidths: action.payload.wishlistWidths,
     };
   }
 

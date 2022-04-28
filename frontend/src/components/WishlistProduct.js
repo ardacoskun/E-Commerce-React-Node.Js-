@@ -2,7 +2,15 @@ import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { useAppContext } from "../context/appContext";
 
-const WishlistProduct = ({ product, wishlistImages, wishlistNames, index }) => {
+const WishlistProduct = ({
+  product,
+  wishlistImages,
+  wishlistNames,
+  index,
+  wishlistColors,
+  wishlistSizes,
+  wishlistWidths,
+}) => {
   const { removeCartItem, addItemToCart, increaseCartItem, decreaseCartItem } =
     useAppContext();
 
@@ -17,6 +25,33 @@ const WishlistProduct = ({ product, wishlistImages, wishlistNames, index }) => {
         <Card.Title as="div">
           <b>{wishlistNames[index]}</b>
         </Card.Title>
+        <Row className="my-3">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            {Object.keys(wishlistColors[index]).length > 0 && (
+              <div>
+                <span style={{ fontWeight: "bold" }}>Color: </span>
+                {wishlistColors[index].color}
+              </div>
+            )}
+            {Object.keys(wishlistSizes[index]).length > 0 && (
+              <div>
+                <span style={{ fontWeight: "bold" }}>Size: </span>
+                {wishlistSizes[index].size}
+              </div>
+            )}
+            {Object.keys(wishlistWidths[index]).length > 0 && (
+              <div>
+                <span style={{ fontWeight: "bold" }}>Width: </span>
+                {wishlistWidths[index].width}
+              </div>
+            )}
+          </div>
+        </Row>
         <Col style={{ display: "flex", alignItems: "center" }}>
           <Col>
             <div className="quantity-container">

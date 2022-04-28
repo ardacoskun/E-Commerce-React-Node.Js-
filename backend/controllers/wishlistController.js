@@ -12,23 +12,46 @@ const getWishlist = async (req, res) => {
     },
   };
 
-  const { data } = await axios.get(
+  const response = await axios.get(
     `${process.env.BASE_URL}/wishlist?secretKey=${process.env.SECRET_KEY}`,
     config
   );
 
-  const wishlistProducts = data.items;
-  const wishlistProductsIds = await CartServices.getProductIds(
-    wishlistProducts
+  const wishlistProducts = response.data.items;
+  const wishlistProductsIds = CartServices.getProductIds(wishlistProducts);
+
+  const wishlistProductsVariants =
+    CartServices.cartProductsVariantsId(wishlistProducts);
+
+  const allWishlistProducts = await CartServices.getCartProducts(
+    wishlistProductsIds
   );
-  const productInfo = await CartServices.getProductInfos(wishlistProductsIds);
+  const colors = CartServices.getVariantColors(
+    allWishlistProducts,
+    wishlistProductsVariants
+  );
+  const sizes = CartServices.getVariantSizes(
+    allWishlistProducts,
+    wishlistProductsVariants
+  );
+  const widths = CartServices.getVariantWidths(
+    allWishlistProducts,
+    wishlistProductsVariants
+  );
+
+  const productNames = CartServices.getProductNames(allWishlistProducts);
+  const productImages = CartServices.getProductImages(allWishlistProducts);
 
   res.status(200).send({
-    productImages: (await productInfo).productImages,
-    productNames: (await productInfo).productsNames,
-    response: data.items,
+    colors,
+    sizes,
+    widths,
+    wishlistProducts,
+    productNames,
+    productImages,
   });
 };
+
 const addItemToWishlist = async (req, res) => {
   const token = req.token;
 

@@ -14,6 +14,9 @@ const WishlistPage = () => {
     isLoading,
     isAlert,
     alertMessage,
+    wishlistColors,
+    wishlistSizes,
+    wishlistWidths,
   } = useAppContext();
 
   useEffect(() => {
@@ -45,6 +48,9 @@ const WishlistPage = () => {
               <Col md={6} lg={4} xl={3} key={index}>
                 <WishlistProduct
                   product={product}
+                  wishlistColors={wishlistColors}
+                  wishlistSizes={wishlistSizes}
+                  wishlistWidths={wishlistWidths}
                   wishlistImages={wishlistImages}
                   wishlistNames={wishlistNames}
                   index={index}
