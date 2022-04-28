@@ -19,6 +19,7 @@ const CartPage = () => {
     decreaseCartItem,
     cartImages,
     cartNames,
+    user,
   } = useAppContext();
 
   const sumOfPrices = [];
@@ -200,6 +201,7 @@ const CartPage = () => {
                     <StripeCheckout
                       name="OSF FINAL"
                       image="/images/additional/osf_digital.png"
+                      email={user.email}
                       shippingAddress
                       billingAddress
                       description={`Your total is ${total}$`}
