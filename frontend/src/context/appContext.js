@@ -165,6 +165,7 @@ const AppProvider = ({ children }) => {
             wishlistColors: data.colors,
             wishlistSizes: data.sizes,
             wishlistWidths: data.widths,
+            variantId: data.variantId,
           },
         });
       }
@@ -250,7 +251,8 @@ const AppProvider = ({ children }) => {
       };
 
       await axios.post(`/${endpoint}/addItem`, productData, config);
-      alert(`The product has been added to your ${endpoint}. `);
+
+      navigate(`/${endpoint}`);
     } catch (error) {
       dispatch({
         type: GET_CART_ERROR,

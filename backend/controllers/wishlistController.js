@@ -79,12 +79,13 @@ const addItemToWishlist = async (req, res) => {
     quantity,
   };
 
-  const { data } = await axios.post(
+  const response = await axios.post(
     `${process.env.BASE_URL}/${endpoint}/addItem`,
     productData,
     config
   );
-  res.status(201).send(data);
+  const data = response.items;
+  res.status(201).send({ data, variantId: variantId });
 };
 const removeItemFromWishlist = async (req, res) => {
   const token = req.token;

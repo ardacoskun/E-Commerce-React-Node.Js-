@@ -18,7 +18,29 @@ const WishlistProduct = ({
     decreaseCartItem,
   } = useAppContext();
 
-  const addProductToCart = () => {};
+  const addItemToCart = (colorItem, sizeItem, widthItem, quantity) => {
+    let color = colorItem.colorCode;
+    let size = sizeItem.sizeCode;
+    let width = widthItem.widthCode;
+
+    if (color === 0) {
+      color = "";
+    }
+    if (size === 0) {
+      size = "";
+    }
+    if (width === 0) {
+      width = "";
+    }
+
+    const productAttributes = {
+      color,
+      size,
+      width,
+    };
+
+    sendProductToCart(product.productId, productAttributes, quantity, "cart");
+  };
 
   return (
     <Card className="my-3 p-3 rounded ">
@@ -109,7 +131,12 @@ const WishlistProduct = ({
           <Button
             variant="primary"
             onClick={() =>
-              addProductToCart(product.id, product.quantity, "cart")
+              addItemToCart(
+                wishlistColors[index],
+                wishlistSizes[index],
+                wishlistWidths[index],
+                product.quantity
+              )
             }
           >
             Add to Cart{" "}

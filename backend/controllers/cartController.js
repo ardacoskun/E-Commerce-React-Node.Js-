@@ -24,6 +24,7 @@ const getCart = async (req, res) => {
     CartServices.cartProductsVariantsId(cartProducts);
 
   const allCartProducts = await CartServices.getCartProducts(cartProductsIds);
+
   const colors = CartServices.getVariantColors(
     allCartProducts,
     cartProductsVariants

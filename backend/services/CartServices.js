@@ -52,7 +52,7 @@ const cartProductsVariantsId = (cartProducts) => {
 
 const getVariantColors = (allCartProducts, cartProductsVariants) => {
   let color = 0;
-  let itemColor = 0;
+  let colorCode = 0;
   const colors = [];
   for (let i = 0; i < allCartProducts.length; i++) {
     const productData = allCartProducts[i][0];
@@ -64,7 +64,7 @@ const getVariantColors = (allCartProducts, cartProductsVariants) => {
             for (let values of attributes.values) {
               if (values.value === color) {
                 color = values.name;
-                itemColor = values.value;
+                colorCode = values.value;
               }
             }
           }
@@ -73,6 +73,7 @@ const getVariantColors = (allCartProducts, cartProductsVariants) => {
     }
     colors.push({
       color,
+      colorCode,
     });
   }
   return colors;
@@ -80,7 +81,7 @@ const getVariantColors = (allCartProducts, cartProductsVariants) => {
 
 const getVariantSizes = (allCartProducts, cartProductsVariants) => {
   let size = 0;
-  let itemSize = 0;
+  let sizeCode = 0;
   const sizes = [];
   for (let i = 0; i < allCartProducts.length; i++) {
     const productData = allCartProducts[i][0];
@@ -92,7 +93,7 @@ const getVariantSizes = (allCartProducts, cartProductsVariants) => {
             for (let values of attributes.values) {
               if (values.value === size) {
                 size = values.name;
-                itemSize = values.value;
+                sizeCode = values.value;
               }
             }
           }
@@ -101,6 +102,7 @@ const getVariantSizes = (allCartProducts, cartProductsVariants) => {
     }
     sizes.push({
       size,
+      sizeCode,
     });
   }
   return sizes;
@@ -108,7 +110,7 @@ const getVariantSizes = (allCartProducts, cartProductsVariants) => {
 
 const getVariantWidths = (allCartProducts, cartProductsVariants) => {
   let width = 0;
-  let itemWidth = 0;
+  let widthCode = 0;
   const allWidths = [];
   for (let i = 0; i < allCartProducts.length; i++) {
     const productData = allCartProducts[i][0];
@@ -120,7 +122,7 @@ const getVariantWidths = (allCartProducts, cartProductsVariants) => {
             for (let values of attributes.values) {
               if (values.value === width) {
                 width = values.name;
-                itemWidth = values.value;
+                widthCode = values.value;
               }
             }
           }
@@ -129,6 +131,7 @@ const getVariantWidths = (allCartProducts, cartProductsVariants) => {
     }
     allWidths.push({
       width,
+      widthCode,
     });
   }
   return allWidths;
