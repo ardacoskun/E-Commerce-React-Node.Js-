@@ -60,7 +60,7 @@ const CartPage = () => {
         const paymentId = data.id;
 
         createOrder(address, paymentId);
-        navigate("/");
+        navigate("/orders");
       } catch (error) {}
     };
     if (stripeToken) {
@@ -96,7 +96,7 @@ const CartPage = () => {
         },
       };
 
-      const response = await axios.post("/orders", orderInfo, config);
+      await axios.post("/orders", orderInfo, config);
     } catch (error) {}
   };
 

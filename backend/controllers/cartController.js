@@ -12,19 +12,19 @@ const getCart = async (req, res) => {
     },
   };
 
-  const response = await axios.get(
+  const { data } = await axios.get(
     `${process.env.BASE_URL}/cart?secretKey=${process.env.SECRET_KEY}`,
     config
   );
 
-  const cartProducts = await CartServices.getCartProducts(response);
+  const cartProducts = data.items;
   const cartProductsIds = await CartServices.getProductIds(cartProducts);
   const productInfo = await CartServices.getProductInfos(cartProductsIds);
 
   res.status(200).send({
     productImages: productInfo.productImages,
     productNames: productInfo.productsNames,
-    response: response.data.items,
+    response: data.items,
   });
 };
 

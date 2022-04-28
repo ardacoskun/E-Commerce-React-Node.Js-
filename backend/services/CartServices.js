@@ -1,17 +1,13 @@
 const axios = require("axios");
 const OutOfStockError = require("../errors/outOfStockError");
 
-const getCartProducts = (request) => {
-  const products = request.data.items;
-  return products;
-};
-
 const getProductIds = async (cartProducts) => {
   const productIds = [];
   for (let product of cartProducts) {
     const productId = product.productId;
     productIds.push(productId);
   }
+
   return productIds;
 };
 
@@ -75,7 +71,6 @@ const getVariantId = (productAttributes, productVariants) => {
 };
 
 module.exports = {
-  getCartProducts,
   getProductIds,
   getProductInfos,
   getVariantId,

@@ -231,11 +231,7 @@ const AppProvider = ({ children }) => {
         quantity,
       };
 
-      const response = await axios.post(
-        `/${endpoint}/addItem`,
-        productData,
-        config
-      );
+      await axios.post(`/${endpoint}/addItem`, productData, config);
       alert(`The product has been added to your ${endpoint}. `);
     } catch (error) {
       dispatch({

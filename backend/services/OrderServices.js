@@ -1,10 +1,5 @@
 const axios = require("axios");
 
-const returnItemsFromRequest = async (request) => {
-  const allProducts = request.data;
-  return allProducts;
-};
-
 const getOrderDetail = async (orders) => {
   let productInfo = {};
   const allOrders = [];
@@ -14,6 +9,7 @@ const getOrderDetail = async (orders) => {
     const paymentId = order.paymentId;
     const orderItems = order.items;
     const singleOrder = [];
+
     for (let product of orderItems) {
       const productId = product.productId;
       const productUnitPrice = product.variant.price;
@@ -63,7 +59,6 @@ const getTotalPrice = async (orders) => {
 };
 
 module.exports = {
-  returnItemsFromRequest,
   getOrderDetail,
   getTotalPrice,
 };

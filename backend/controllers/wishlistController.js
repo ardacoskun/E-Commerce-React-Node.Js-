@@ -12,19 +12,21 @@ const getWishlist = async (req, res) => {
     },
   };
 
-  const response = await axios.get(
+  const { data } = await axios.get(
     `${process.env.BASE_URL}/wishlist?secretKey=${process.env.SECRET_KEY}`,
     config
   );
 
-  const wishlistProducts = await CartServices.getCartProducts(response);
-  const wishlistProductsIds = CartServices.getProductIds(wishlistProducts);
-  const productInfo = CartServices.getProductInfos(wishlistProductsIds);
+  const wishlistProducts = data.items;
+  const wishlistProductsIds = await CartServices.getProductIds(
+    wishlistProducts
+  );
+  const productInfo = await CartServices.getProductInfos(wishlistProductsIds);
 
   res.status(200).send({
     productImages: (await productInfo).productImages,
     productNames: (await productInfo).productsNames,
-    response: response.data.items,
+    response: data.items,
   });
 };
 const addItemToWishlist = async (req, res) => {

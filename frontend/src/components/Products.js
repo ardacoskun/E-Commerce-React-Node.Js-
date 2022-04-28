@@ -7,7 +7,7 @@ const Products = ({ product }) => {
   const { parentId, subcategoryId, productCategoryId } = useParams();
   const navigate = useNavigate();
   return (
-    <Card className="my-3 p-3 rounded" style={{ height: "500px" }}>
+    <Card className="my-3 p-3 rounded">
       <Link to="/">
         <Card.Img
           src={`/images/${product.image_groups[0].images[0].link}`}

@@ -18,6 +18,7 @@ const payment = async (req, res) => {
     }
   );
 };
+
 const getOrders = async (req, res) => {
   const token = req.token;
 
@@ -28,12 +29,12 @@ const getOrders = async (req, res) => {
     },
   };
 
-  const response = await axios.get(
+  const { data } = await axios.get(
     `${process.env.BASE_URL}/orders?secretKey=${process.env.SECRET_KEY}`,
     config
   );
 
-  const orders = await OrderServices.returnItemsFromRequest(response);
+  const orders = data;
   const allOrders = await OrderServices.getOrderDetail(orders);
   const totalOrderPrice = await OrderServices.getTotalPrice(orders);
 
