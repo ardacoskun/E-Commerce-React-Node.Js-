@@ -14,13 +14,14 @@ const SingleProductPage = () => {
   }, [loading]);
 
   const getProduct = async () => {
-    const { data } = await axios.get(
-      `/${parentId}/${subcategoryId}/${productCategoryId}/${productId}`
-    );
+    try {
+      const { data } = await axios.get(
+        `/${parentId}/${subcategoryId}/${productCategoryId}/${productId}`
+      );
 
-    setProduct(data[0]);
-
-    setLoading(false);
+      setProduct(data[0]);
+      setLoading(false);
+    } catch (error) {}
   };
 
   return <>{loading ? <Loading /> : <SingleProduct product={product} />}</>;

@@ -37,6 +37,9 @@ const initialState = {
   wishlist: [],
   cartImages: [],
   cartNames: [],
+  colors: [],
+  sizes: [],
+  widths: [],
   wishlistImages: [],
   wishlistNames: [],
 };
@@ -140,9 +143,12 @@ const AppProvider = ({ children }) => {
         return dispatch({
           type: GET_CART_SUCCESS,
           payload: {
-            cart: data.response,
+            cart: data.cartProducts,
             cartImages: data.productImages,
             cartNames: data.productNames,
+            colors: data.colors,
+            sizes: data.sizes,
+            widths: data.widths,
           },
         });
       }
@@ -150,7 +156,7 @@ const AppProvider = ({ children }) => {
         return dispatch({
           type: GET_WISHLIST_SUCCESS,
           payload: {
-            wishlist: data.response,
+            wishlist: data.cartProducts,
             wishlistImages: data.productImages,
             wishlistNames: data.productNames,
           },

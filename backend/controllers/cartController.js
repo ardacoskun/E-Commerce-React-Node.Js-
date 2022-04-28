@@ -12,20 +12,37 @@ const getCart = async (req, res) => {
     },
   };
 
-  const { data } = await axios.get(
+  const response = await axios.get(
     `${process.env.BASE_URL}/cart?secretKey=${process.env.SECRET_KEY}`,
     config
   );
 
-  const cartProducts = data.items;
-  const cartProductsIds = await CartServices.getProductIds(cartProducts);
-  const productInfo = await CartServices.getProductInfos(cartProductsIds);
+  const cartProducts = response.data.items;
+  const cartProductsIds = CartServices.getProductIds(cartProducts);
 
-  res.status(200).send({
-    productImages: productInfo.productImages,
-    productNames: productInfo.productsNames,
-    response: data.items,
-  });
+  const cartProductsVariants =
+    CartServices.cartProductsVariantsId(cartProducts);
+
+  const allCartProducts = await CartServices.getCartProducts(cartProductsIds);
+  const colors = CartServices.getVariantColors(
+    allCartProducts,
+    cartProductsVariants
+  );
+  const sizes = CartServices.getVariantSizes(
+    allCartProducts,
+    cartProductsVariants
+  );
+  const widths = CartServices.getVariantWidths(
+    allCartProducts,
+    cartProductsVariants
+  );
+
+  const productNames = CartServices.getProductNames(allCartProducts);
+  const productImages = CartServices.getProductImages(allCartProducts);
+
+  res
+    .status(200)
+    .send({ colors, sizes, widths, cartProducts, productNames, productImages });
 };
 
 const addItemToCart = async (req, res) => {
@@ -59,6 +76,7 @@ const addItemToCart = async (req, res) => {
   );
   res.status(201).json(response.data);
 };
+
 const removeItemFromCart = async (req, res) => {
   const token = req.token;
 

@@ -14,6 +14,9 @@ const CartPage = () => {
     isLoading,
     alertMessage,
     cart,
+    colors,
+    sizes,
+    widths,
     removeCartItem,
     increaseCartItem,
     decreaseCartItem,
@@ -71,14 +74,14 @@ const CartPage = () => {
 
   const getTotalPrice = () => {
     cart.map((item) => {
-      sumOfPrices.push(item.quantity * item.variant.price);
+      return sumOfPrices.push(item.quantity * item.variant.price);
     });
     setTotal(sumOfPrices.reduce((acc, curr) => acc + curr, 0));
   };
 
   const createOrder = async (address, paymentId) => {
     cart.map((item) => {
-      orderVariants.push(item);
+      return orderVariants.push(item);
     });
 
     const orderInfo = {
@@ -125,7 +128,11 @@ const CartPage = () => {
             <Col md={8}>
               <h1>Shopping Cart</h1>
               {cart.map((item, index) => (
-                <ListGroup variant="flush" key={index}>
+                <ListGroup
+                  variant="flush"
+                  key={index}
+                  style={{ border: "1px solid black" }}
+                >
                   <ListGroup.Item>
                     <Row style={{ display: "flex", alignItems: "center" }}>
                       <Col md={2} key={index}>
@@ -136,7 +143,46 @@ const CartPage = () => {
                           rounded
                         />
                       </Col>
-                      <Col md={3}>{cartNames[index]}</Col>
+                      <Col md={4}>
+                        <Row>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              flexDirection: "column",
+                              justifyContent: "flex-start",
+                            }}
+                          >
+                            <h5 style={{ fontWeight: "bold" }}>
+                              {cartNames[index]}
+                            </h5>
+                            {Object.keys(colors[index]).length > 0 && (
+                              <div>
+                                <span style={{ fontWeight: "bold" }}>
+                                  Color:{" "}
+                                </span>
+                                {colors[index].color}
+                              </div>
+                            )}
+                            {Object.keys(sizes[index]).length > 0 && (
+                              <div>
+                                <span style={{ fontWeight: "bold" }}>
+                                  Size:{" "}
+                                </span>
+                                {sizes[index].size}
+                              </div>
+                            )}
+                            {Object.keys(widths[index]).length > 0 && (
+                              <div>
+                                <span style={{ fontWeight: "bold" }}>
+                                  Width:{" "}
+                                </span>
+                                {widths[index].width}
+                              </div>
+                            )}
+                          </div>
+                        </Row>
+                      </Col>
                       <Col md={2}>
                         <div className="quantity-container">
                           <span

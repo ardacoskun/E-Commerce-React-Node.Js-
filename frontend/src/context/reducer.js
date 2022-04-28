@@ -16,8 +16,6 @@ import {
   DECREASE_CART_ITEM,
   ADD_CART_ITEM,
   GET_WISHLIST_SUCCESS,
-  ADD_CART_SUCCESS,
-  ADD_CART_ERROR,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -120,6 +118,9 @@ const reducer = (state, action) => {
       cart: action.payload.cart,
       cartImages: action.payload.cartImages,
       cartNames: action.payload.cartNames,
+      colors: action.payload.colors,
+      sizes: action.payload.sizes,
+      widths: action.payload.widths,
     };
   }
 

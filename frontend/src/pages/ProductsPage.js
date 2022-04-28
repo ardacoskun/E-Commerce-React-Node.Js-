@@ -12,14 +12,16 @@ const ProductsPage = () => {
 
   useEffect(() => {
     getProducts();
-  }, [productCategoryId]);
+  }, []);
 
   const getProducts = async () => {
-    const { data } = await axios.get(
-      `/${parentId}/${subcategoryId}/${productCategoryId}`
-    );
-    setProducts(data);
-    setLoading(false);
+    try {
+      const { data } = await axios.get(
+        `/${parentId}/${subcategoryId}/${productCategoryId}`
+      );
+      setProducts(data);
+      setLoading(false);
+    } catch (error) {}
   };
 
   if (loading) {
