@@ -1,3 +1,5 @@
+const Sentry = require("@sentry/node");
+
 const errorHandlerMiddleware = (err, req, res, next) => {
   const defaultError = {
     statusCode: err.statusCode || 500,
@@ -8,6 +10,8 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     defaultError.statusCode = 400;
     defaultError.msg = err.response.data.error;
   }
+
+  Sentry.captureException(err);
 
   res
     .status(defaultError.statusCode)

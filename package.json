@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/ardacoskun/osf_final_project#readme",
   "dependencies": {
+    "@sentry/node": "^6.19.7",
+    "@sentry/tracing": "^6.19.7",
     "axios": "^0.26.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",

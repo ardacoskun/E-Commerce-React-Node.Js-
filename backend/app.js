@@ -1,8 +1,9 @@
 const express = require("express");
 require("express-async-errors");
 const dotenv = require("dotenv");
-const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const Sentry = require("@sentry/node");
+const { BrowserTracing } = require("@sentry/tracing");
 
 dotenv.config();
 
@@ -22,12 +23,29 @@ const errorHandlerMiddleware = require("./middleware/errorHandler");
 const authCheck = require("./middleware/authCheck");
 
 app.use(express.json());
-app.use(cookieParser());
 app.use(cors());
 
-// app.get("/", (req, res) => {
-//   res.send("working");
-// });
+app.use(Sentry.Handlers.requestHandler());
+app.use(Sentry.Handlers.errorHandler());
+
+Sentry.init({
+  dsn: "https://fc3196bb386343c783f344709654e47b@o1218322.ingest.sentry.io/6360339",
+  integrations: [
+    new BrowserTracing(),
+    new Sentry.Integrations.Http({ tracing: true }),
+  ],
+  debug: true,
+  tracesSampleRate: 1.0,
+});
+
+const transaction = Sentry.startTransaction({
+  op: "test",
+  name: "My First Test Transaction",
+});
+
+Sentry.configureScope((scope) => {
+  scope.setSpan(transaction);
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/cart", authCheck, cartRoutes);
