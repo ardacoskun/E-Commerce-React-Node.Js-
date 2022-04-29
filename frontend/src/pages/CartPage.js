@@ -156,7 +156,7 @@ const CartPage = () => {
                             <h5 style={{ fontWeight: "bold" }}>
                               {cartNames[index]}
                             </h5>
-                            {Object.keys(colors[index]).length > 0 && (
+                            {Object.keys(colors[index]).length > 1 && (
                               <div>
                                 <span style={{ fontWeight: "bold" }}>
                                   Color:{" "}
@@ -164,7 +164,7 @@ const CartPage = () => {
                                 {colors[index].color}
                               </div>
                             )}
-                            {Object.keys(sizes[index]).length > 0 && (
+                            {Object.keys(sizes[index]).length > 1 && (
                               <div>
                                 <span style={{ fontWeight: "bold" }}>
                                   Size:{" "}
@@ -172,7 +172,7 @@ const CartPage = () => {
                                 {sizes[index].size}
                               </div>
                             )}
-                            {Object.keys(widths[index]).length > 0 && (
+                            {Object.keys(widths[index]).length > 1 && (
                               <div>
                                 <span style={{ fontWeight: "bold" }}>
                                   Width:{" "}

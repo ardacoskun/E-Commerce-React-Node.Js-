@@ -232,7 +232,8 @@ const AppProvider = ({ children }) => {
     productId,
     productAttributes,
     quantity,
-    endpoint
+    endpoint,
+    path
   ) => {
     dispatch({ type: ADD_CART_ITEM });
     try {
@@ -250,9 +251,19 @@ const AppProvider = ({ children }) => {
         endpoint,
       };
 
-      await axios.post(`/${endpoint}/addItem`, productData, config);
+      const { data } = await axios.post(
+        `/${endpoint}/addItem`,
+        productData,
+        config
+      );
 
-      navigate(`/${endpoint}`);
+      const variantId = data.variantId;
+
+      if (path === "wishlist") {
+        removeCartItem(productId, variantId, "wishlist");
+      } else {
+        navigate(`/${endpoint}`);
+      }
     } catch (error) {
       dispatch({
         type: GET_CART_ERROR,

@@ -80,7 +80,7 @@ const addItemToCart = async (req, res) => {
     config
   );
 
-  res.status(201).send(data);
+  res.status(201).send({ data, variantId });
 };
 
 const removeItemFromCart = async (req, res) => {

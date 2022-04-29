@@ -43,7 +43,7 @@ const SingleProduct = ({ product }) => {
     }, [2000]);
   }, [alert]);
 
-  const addProductToCart = (productId, quantity, endpoint) => {
+  const addProductToCart = (productId, quantity, endpoint, path) => {
     if (attributeLength < 1) {
       return setAlert("Product is not available");
     }
@@ -72,7 +72,7 @@ const SingleProduct = ({ product }) => {
       width,
     };
 
-    sendProductToCart(productId, productAttributes, quantity, endpoint);
+    sendProductToCart(productId, productAttributes, quantity, endpoint, path);
   };
 
   const handleChange = (e) => {
@@ -156,7 +156,9 @@ const SingleProduct = ({ product }) => {
             ) : (
               <Button
                 variant="danger"
-                onClick={() => addProductToCart(product.id, count, "wishlist")}
+                onClick={() =>
+                  addProductToCart(product.id, count, "wishlist", "product")
+                }
               >
                 <i className="fas fa-heart"></i> Add to Wishlist
               </Button>
@@ -201,7 +203,9 @@ const SingleProduct = ({ product }) => {
                 <Button
                   className="w-100"
                   type="button"
-                  onClick={() => addProductToCart(product.id, count, "cart")}
+                  onClick={() =>
+                    addProductToCart(product.id, count, "cart", "product")
+                  }
                 >
                   Add To Cart
                 </Button>

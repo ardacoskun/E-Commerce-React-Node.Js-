@@ -85,7 +85,7 @@ const addItemToWishlist = async (req, res) => {
     config
   );
   const data = response.items;
-  res.status(201).send({ data, variantId: variantId });
+  res.status(201).send(data);
 };
 const removeItemFromWishlist = async (req, res) => {
   const token = req.token;

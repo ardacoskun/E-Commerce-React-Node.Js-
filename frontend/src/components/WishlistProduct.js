@@ -39,7 +39,13 @@ const WishlistProduct = ({
       width,
     };
 
-    sendProductToCart(product.productId, productAttributes, quantity, "cart");
+    sendProductToCart(
+      product.productId,
+      productAttributes,
+      quantity,
+      "cart",
+      "wishlist"
+    );
   };
 
   return (
@@ -60,19 +66,19 @@ const WishlistProduct = ({
               alignItems: "center",
             }}
           >
-            {Object.keys(wishlistColors[index]).length > 0 && (
+            {Object.keys(wishlistColors[index]).length > 1 && (
               <div>
                 <span style={{ fontWeight: "bold" }}>Color: </span>
                 {wishlistColors[index].color}
               </div>
             )}
-            {Object.keys(wishlistSizes[index]).length > 0 && (
+            {Object.keys(wishlistSizes[index]).length > 1 && (
               <div>
                 <span style={{ fontWeight: "bold" }}>Size: </span>
                 {wishlistSizes[index].size}
               </div>
             )}
-            {Object.keys(wishlistWidths[index]).length > 0 && (
+            {Object.keys(wishlistWidths[index]).length > 1 && (
               <div>
                 <span style={{ fontWeight: "bold" }}>Width: </span>
                 {wishlistWidths[index].width}
@@ -112,7 +118,9 @@ const WishlistProduct = ({
               </span>
             </div>
           </Col>
-          <Card.Text as="h4">{product.variant.price}$</Card.Text>
+          <Card.Text as="h4">
+            {product.variant.price * product.quantity}$
+          </Card.Text>
         </Col>
         <Row>
           <Button
