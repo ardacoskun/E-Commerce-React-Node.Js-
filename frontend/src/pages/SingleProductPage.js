@@ -6,6 +6,7 @@ import Loading from "../components/Loading";
 
 const SingleProductPage = () => {
   const [product, setProduct] = useState([]);
+  const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(true);
   const { parentId, subcategoryId, productCategoryId, productId } = useParams();
 
@@ -21,10 +22,21 @@ const SingleProductPage = () => {
 
       setProduct(data[0]);
       setLoading(false);
-    } catch (error) {}
+    } catch (error) {
+      setErrorMsg("Product in not found");
+      setLoading(false);
+    }
   };
 
-  return <>{loading ? <Loading /> : <SingleProduct product={product} />}</>;
+  return (
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <SingleProduct product={product} errorMsg={errorMsg} />
+      )}
+    </>
+  );
 };
 
 export default SingleProductPage;

@@ -3,7 +3,7 @@ import { Row, Col, ListGroup, Image, Button, Card } from "react-bootstrap";
 import axios from "axios";
 import { useAppContext } from "../context/appContext";
 import StripeCheckout from "react-stripe-checkout";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
 
@@ -28,6 +28,7 @@ const CartPage = () => {
   const sumOfPrices = [];
   const orderVariants = [];
   const [total, setTotal] = useState();
+  const [errorMsg, setErrorMsg] = useState("");
 
   const [stripeToken, setStripeToken] = useState(null);
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ const CartPage = () => {
   useEffect(() => {
     const makeRequest = async () => {
       try {
-        const { data } = await axios.post("http://localhost:5000/payment", {
+        const { data } = await axios.post("/payment", {
           tokenId: stripeToken.id,
           amount: total * 100,
         });
@@ -65,7 +66,9 @@ const CartPage = () => {
 
         createOrder(address, paymentId);
         navigate("/orders");
-      } catch (error) {}
+      } catch (error) {
+        setErrorMsg("Payment has failed!!");
+      }
     };
     if (stripeToken) {
       makeRequest();
@@ -90,18 +93,20 @@ const CartPage = () => {
       items: orderVariants,
     };
 
-    try {
-      const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      };
+    if (!token) {
+      return <Navigate to="signin" />;
+    }
 
-      await axios.post("/orders", orderInfo, config);
-    } catch (error) {}
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    await axios.post("/orders", orderInfo, config);
   };
 
   if (isLoading) {
@@ -128,13 +133,14 @@ const CartPage = () => {
             <Col md={8}>
               <h1>Shopping Cart</h1>
               {cart.map((item, index) => (
-                <ListGroup
-                  variant="flush"
-                  key={index}
-                  style={{ border: "1px solid black" }}
-                >
+                <ListGroup variant="flush" key={index}>
                   <ListGroup.Item>
-                    <Row style={{ display: "flex", alignItems: "center" }}>
+                    <Row
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
                       <Col md={2} key={index}>
                         <Image
                           src={`images/${cartImages[index]}`}
@@ -158,7 +164,7 @@ const CartPage = () => {
                             </h5>
                             {Object.keys(colors[index]).length > 1 && (
                               <div>
-                                <span style={{ fontWeight: "bold" }}>
+                                <span style={{ fontWeight: "30px" }}>
                                   Color:{" "}
                                 </span>
                                 {colors[index].color}
@@ -234,6 +240,7 @@ const CartPage = () => {
                       </Col>
                     </Row>
                   </ListGroup.Item>
+                  <hr />
                 </ListGroup>
               ))}
             </Col>

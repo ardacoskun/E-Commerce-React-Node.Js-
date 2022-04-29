@@ -26,11 +26,10 @@ const ProductsPage = () => {
       const errorMsg = error.response.data;
       if (errorMsg.statusCode === 400 && errorMsg.msg.includes("Found")) {
         setAlert("Sorry, There Are No Products In This Collection");
-        setLoading(false);
       } else {
-        setAlert("Somethings went wrong");
-        setLoading(false);
+        setAlert("Something went wrong");
       }
+      setLoading(false);
     }
   };
 

@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Form, Col, Row, Button, Badge } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
 import FormGroup from "../components/FormGroup";
 import { useAppContext } from "../context/appContext";
 
@@ -9,9 +8,6 @@ const ProfilePage = () => {
   const { user } = useAppContext();
   const [cartCount, setCartCount] = useState(0);
   const [wishlistCount, setWishlistCount] = useState(0);
-  const [loding, setLoading] = useState(true);
-  const [alert, setAlert] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     getUserInfo();
@@ -32,7 +28,6 @@ const ProfilePage = () => {
 
       setCartCount(data.cartCount.length);
       setWishlistCount(data.wishlistCount.length);
-      setLoading(false);
     } catch (error) {}
   };
 

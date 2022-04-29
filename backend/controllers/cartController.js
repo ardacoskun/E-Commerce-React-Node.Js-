@@ -1,5 +1,4 @@
 const axios = require("axios");
-const OutOfStockError = require("../errors/outOfStockError");
 const CartServices = require("../services/CartServices");
 
 const getCart = async (req, res) => {
