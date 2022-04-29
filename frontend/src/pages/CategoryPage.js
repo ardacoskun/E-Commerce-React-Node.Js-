@@ -4,7 +4,6 @@ import axios from "axios";
 import ParentCategories from "../components/ParentCategories";
 import { Link, useParams } from "react-router-dom";
 import Loading from "../components/Loading";
-import NotFoundPage from "./NotFound";
 
 const CategoryPage = () => {
   const [loading, setLoading] = useState(true);
@@ -18,8 +17,8 @@ const CategoryPage = () => {
   }, [parentId]);
 
   const getCategories = () => {
-    const getRootCategories = axios.get(`/categories/${parentId}`);
-    const getParentCategories = axios.get(`/${parentId}`);
+    const getRootCategories = axios.get(`/api/categories/${parentId}`);
+    const getParentCategories = axios.get(`/api/${parentId}`);
 
     axios
       .all([getRootCategories, getParentCategories])

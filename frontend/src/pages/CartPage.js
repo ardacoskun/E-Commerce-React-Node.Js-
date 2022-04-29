@@ -48,7 +48,7 @@ const CartPage = () => {
   useEffect(() => {
     const makeRequest = async () => {
       try {
-        const { data } = await axios.post("/payment", {
+        const { data } = await axios.post("/api/payment", {
           tokenId: stripeToken.id,
           amount: total * 100,
         });
@@ -106,11 +106,15 @@ const CartPage = () => {
       },
     };
 
-    await axios.post("/orders", orderInfo, config);
+    await axios.post("/api/orders", orderInfo, config);
   };
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (errorMsg) {
+    return <div>{errorMsg}</div>;
   }
 
   return (

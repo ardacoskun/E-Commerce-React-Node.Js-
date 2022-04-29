@@ -17,12 +17,14 @@ const SearchPage = () => {
 
   const getSearchedProducts = async () => {
     try {
-      const { data } = await axios.get(`/search/?keyword=${keyword}`);
+      const { data } = await axios.get(`/api/search/?keyword=${keyword}`);
       setProducts(data);
       setLoading(false);
     } catch (error) {
-      if (error.response.data.statusCode) {
+      if (error.response.data.statusCode === 404) {
         setAlert(error.response.data.msg);
+      } else {
+        setAlert("Something went wrong");
       }
       setLoading(false);
     }
@@ -44,6 +46,7 @@ const SearchPage = () => {
           }}
         >
           <h1>{alert}</h1>
+          <Link to="/">BACK TO HOMEPAGE</Link>
         </div>
       ) : (
         products.length > 0 && (

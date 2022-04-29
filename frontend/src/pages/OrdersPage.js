@@ -1,18 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 
 const OrdersPage = () => {
-  const [orders, setOrders] = useState([]);
+  const [userOrders, setUserOrders] = useState([]);
   const [ordersTotal, setOrdersTotal] = useState([]);
   const [alert, setAlert] = useState("");
   const [loading, setLoading] = useState(true);
+  const { orders } = useParams();
 
   useEffect(() => {
     getOrdersData();
-  }, []);
+  }, [orders]);
 
   const getOrdersData = async () => {
     try {
@@ -25,9 +26,9 @@ const OrdersPage = () => {
         },
       };
 
-      const { data } = await axios.get("/orders", config);
+      const { data } = await axios.get("/api/orders", config);
 
-      setOrders(data.allOrders);
+      setUserOrders(data.allOrders);
       setOrdersTotal(data.subTotal);
       setLoading(false);
     } catch (error) {
@@ -61,8 +62,8 @@ const OrdersPage = () => {
           <Link to="/">Start Shopping</Link>
         </div>
       ) : (
-        orders.length > 0 &&
-        orders.map((order, index) => (
+        userOrders.length > 0 &&
+        userOrders.map((order, index) => (
           <Card className="my-3 rounded" key={index}>
             <Card.Header as="h5">{`Order ${index + 1}`}</Card.Header>
             {order.map((item, index) => (

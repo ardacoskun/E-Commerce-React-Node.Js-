@@ -29,15 +29,15 @@ app.use(cors());
 //   res.send("working");
 // });
 
-app.use("/auth", authRoutes);
-app.use("/cart", authCheck, cartRoutes);
-app.use("/wishlist", authCheck, wishlistRoutes);
-app.use("/checkout", authCheck, stripeRoutes);
-app.use("/orders", authCheck, orderRoutes);
-app.use("/profile", authCheck, profileRoutes);
-app.use("/payment", stripeRoutes);
-app.use("/search", searchRoutes);
-app.use("/", categoryRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/cart", authCheck, cartRoutes);
+app.use("/api/wishlist", authCheck, wishlistRoutes);
+app.use("/api/checkout", authCheck, stripeRoutes);
+app.use("/api/orders", authCheck, orderRoutes);
+app.use("/api/profile", authCheck, profileRoutes);
+app.use("/api/payment", stripeRoutes);
+app.use("/api/search", searchRoutes);
+app.use("/api", categoryRoutes);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

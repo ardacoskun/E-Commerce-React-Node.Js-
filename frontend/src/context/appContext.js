@@ -93,7 +93,7 @@ const AppProvider = ({ children }) => {
         },
       };
 
-      const response = await axios.post("/auth/register", newUser, config);
+      const response = await axios.post("/api/auth/register", newUser, config);
       const { user, token } = response.data;
 
       dispatch({ type: REGISTER_SUCCESS, payload: { user, token } });
@@ -117,7 +117,7 @@ const AppProvider = ({ children }) => {
         },
       };
 
-      const response = await axios.post("/auth/login", currentUser, config);
+      const response = await axios.post("/api/auth/login", currentUser, config);
       const { user, token } = response.data;
 
       dispatch({ type: LOGIN_SUCCESS, payload: { user, token } });
@@ -140,7 +140,7 @@ const AppProvider = ({ children }) => {
   const getCart = async (endpoint) => {
     dispatch({ type: GET_CART_START });
     try {
-      const { data } = await axios.get(`/${endpoint}`, config);
+      const { data } = await axios.get(`/api/${endpoint}`, config);
 
       if (endpoint === "cart") {
         return dispatch({
@@ -183,7 +183,7 @@ const AppProvider = ({ children }) => {
     try {
       await axios({
         method: "DELETE",
-        url: `/${endpoint}/removeItem`,
+        url: `/api/${endpoint}/removeItem`,
         data: {
           productId,
           variantId,
@@ -204,7 +204,11 @@ const AppProvider = ({ children }) => {
         variantId,
         quantity,
       };
-      await axios.post(`/${endpoint}/changeItemQuantity`, productData, config);
+      await axios.post(
+        `/api/${endpoint}/changeItemQuantity`,
+        productData,
+        config
+      );
       getCart(endpoint);
     } catch (error) {}
   };
@@ -223,7 +227,11 @@ const AppProvider = ({ children }) => {
         variantId,
         quantity,
       };
-      await axios.post(`/${endpoint}/changeItemQuantity`, productData, config);
+      await axios.post(
+        `/api/${endpoint}/changeItemQuantity`,
+        productData,
+        config
+      );
 
       getCart(endpoint);
     } catch (error) {}
@@ -253,7 +261,7 @@ const AppProvider = ({ children }) => {
       };
 
       const { data } = await axios.post(
-        `/${endpoint}/addItem`,
+        `/api/${endpoint}/addItem`,
         productData,
         config
       );

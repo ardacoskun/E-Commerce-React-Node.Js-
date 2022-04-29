@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import Products from "../components/Products.js";
 import Loading from "../components/Loading.js";
 
@@ -18,7 +18,7 @@ const ProductsPage = () => {
   const getProducts = async () => {
     try {
       const { data } = await axios.get(
-        `/${parentId}/${subcategoryId}/${productCategoryId}`
+        `/api/${parentId}/${subcategoryId}/${productCategoryId}`
       );
       setProducts(data);
       setLoading(false);

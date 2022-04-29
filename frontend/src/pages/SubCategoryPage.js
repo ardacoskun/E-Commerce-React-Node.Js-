@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import Subcategories from "../components/Subcategories";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -13,7 +13,7 @@ const SubCategoryPage = () => {
   }, []);
 
   const getSubCategories = async () => {
-    const { data } = await axios.get(`/${parentId}/${subcategoryId}`);
+    const { data } = await axios.get(`/api/${parentId}/${subcategoryId}`);
 
     setSubCategories(data);
   };

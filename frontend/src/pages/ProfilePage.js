@@ -24,7 +24,7 @@ const ProfilePage = () => {
         },
       };
 
-      const { data } = await axios.get("/profile", config);
+      const { data } = await axios.get("/api/profile", config);
 
       setCartCount(data.cartCount.length);
       setWishlistCount(data.wishlistCount.length);
