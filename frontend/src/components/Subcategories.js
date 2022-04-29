@@ -9,9 +9,8 @@ const SubCategoryItem = ({ subCategory }) => {
   return (
     <>
       <Card className="my-3 p-3 rounded text-center">
-        <a href={`category/${subCategory._id}`}>
-          <Card.Img src={`/images/${subCategory.image}`} variant="top" />
-        </a>
+        <Card.Img src={`/images/${subCategory.image}`} variant="top" />
+
         <Card.Text>{subCategory.name}</Card.Text>
         <Card.Body className="text-center">
           <Card.Text>{subCategory.page_description}</Card.Text>

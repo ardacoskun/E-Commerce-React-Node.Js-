@@ -35,7 +35,7 @@ const ProfilePage = () => {
     <>
       <Col
         style={{
-          border: "1px solid blue",
+          border: "1px solid #d9534f",
           borderRadius: "10px",
           padding: "40px 10px",
         }}

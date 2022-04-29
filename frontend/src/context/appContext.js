@@ -174,6 +174,7 @@ const AppProvider = ({ children }) => {
         type: GET_CART_ERROR,
         payload: { msg: error.response.data.msg },
       });
+      clearAlert();
     }
   };
 
@@ -265,11 +266,23 @@ const AppProvider = ({ children }) => {
         navigate(`/${endpoint}`);
       }
     } catch (error) {
-      dispatch({
-        type: GET_CART_ERROR,
-        payload: { msg: error.response.data.msg },
-      });
-      alert(error.response.data.msg);
+      if (
+        error.response.data.statusCode === 401 ||
+        error.response.data.msg.includes("401")
+      ) {
+        dispatch({
+          type: LOGIN_ERROR,
+          payload: { msg: "You need to sign in first" },
+        });
+        navigate("/signin");
+        clearAlert();
+      } else {
+        dispatch({
+          type: GET_CART_ERROR,
+          payload: { msg: error.response.data.msg },
+        });
+        alert(error.response.data.msg);
+      }
     }
   };
 
