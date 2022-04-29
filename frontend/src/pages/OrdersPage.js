@@ -31,8 +31,12 @@ const OrdersPage = () => {
       setOrdersTotal(data.subTotal);
       setLoading(false);
     } catch (error) {
-      if (error.response.data.statusCode == 400) {
-        setAlert(error.response.data.msg);
+      const errorMsg = error.response.data;
+      if (errorMsg.statusCode === 400 && errorMsg.msg.includes("orders")) {
+        setAlert("You haven't placed an order yet.");
+        setLoading(false);
+      } else {
+        setAlert("Something went wrong!!");
         setLoading(false);
       }
     }
@@ -44,7 +48,7 @@ const OrdersPage = () => {
 
   return (
     <>
-      {alert && alert.includes("no orders") ? (
+      {alert ? (
         <div
           style={{
             display: "flex",

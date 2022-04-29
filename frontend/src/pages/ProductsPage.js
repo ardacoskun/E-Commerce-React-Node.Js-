@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { Col, Container, Row } from "react-bootstrap";
 import Products from "../components/Products.js";
@@ -8,6 +8,7 @@ import Loading from "../components/Loading.js";
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [alert, setAlert] = useState("");
   const { parentId, subcategoryId, productCategoryId } = useParams();
 
   useEffect(() => {
@@ -21,7 +22,16 @@ const ProductsPage = () => {
       );
       setProducts(data);
       setLoading(false);
-    } catch (error) {}
+    } catch (error) {
+      const errorMsg = error.response.data;
+      if (errorMsg.statusCode === 400 && errorMsg.msg.includes("Found")) {
+        setAlert("Sorry, There Are No Products In This Collection");
+        setLoading(false);
+      } else {
+        setAlert("Somethings went wrong");
+        setLoading(false);
+      }
+    }
   };
 
   if (loading) {
@@ -30,13 +40,27 @@ const ProductsPage = () => {
 
   return (
     <>
-      <Row>
-        {products.map((product) => (
-          <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
-            <Products product={product} />
-          </Col>
-        ))}
-      </Row>
+      {alert ? (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <h1>{alert}</h1>
+          <Link to="/">BACK TO HOMEPAGE</Link>
+        </div>
+      ) : (
+        <Row>
+          {products.map((product) => (
+            <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
+              <Products product={product} />
+            </Col>
+          ))}
+        </Row>
+      )}
     </>
   );
 };

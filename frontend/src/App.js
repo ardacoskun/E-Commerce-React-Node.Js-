@@ -16,6 +16,7 @@ import CartPage from "./pages/CartPage";
 import WishlistPage from "./pages/WishlistPage";
 import OrdersPage from "./pages/OrdersPage";
 import SearchPage from "./pages/SearchPage";
+import NotFoundPage from "./pages/NotFound";
 
 const App = () => {
   return (
@@ -74,6 +75,7 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Container>
       </main>

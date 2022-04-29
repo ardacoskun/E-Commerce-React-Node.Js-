@@ -1,14 +1,7 @@
 const axios = require("axios");
 const CategoryServices = require("../services/CategoryServices");
-
-//GET ALL CATEGORIES
-const getAllCategories = async (req, res) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}categories?secretKey=${process.env.SECRET_KEY}`
-  );
-
-  return await res.status(200).json(data);
-};
+const NotFoundError = require("../errors/notFoundError");
+const { nextTick } = require("process");
 
 //GET ROOT CATEGORIES
 const getRootCategories = async (req, res) => {
@@ -29,6 +22,10 @@ const getParentCategories = async (req, res) => {
     `${process.env.BASE_URL}categories/parent/${parentId}?secretKey=${process.env.SECRET_KEY}`
   );
 
+  if (data.length <= 0) {
+    throw new NotFoundError("Page is not found");
+  }
+
   const categories = await CategoryServices.checkImage(data);
 
   return await res.status(200).json(categories);
@@ -48,7 +45,7 @@ const getSubCategories = async (req, res) => {
 };
 
 //GET PRODUCTS
-const getProducts = async (req, res) => {
+const getProducts = async (req, res, next) => {
   const { productCategoryId } = req.params;
 
   const { data } = await axios.get(
@@ -70,7 +67,6 @@ const getSingleProduct = async (req, res) => {
 };
 
 module.exports = {
-  getAllCategories,
   getParentCategories,
   getRootCategories,
   getSubCategories,

@@ -1,5 +1,5 @@
 import React from "react";
-import { Breadcrumb, BreadcrumbItem } from "react-bootstrap";
+import { Breadcrumb } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useLocation } from "react-router-dom";
 
@@ -7,18 +7,15 @@ const BreadCrumbs = () => {
   const location = useLocation();
   const pathNames = location.pathname.split("/").filter((item) => item);
 
-  // if (pathNames[2]) {
-  //   const newPath = pathNames[2].split("-");
-  //   if (newPath.length === 2) {
-  //     pathNames[2] = newPath[1];
-  //   }
-  //   if (newPath.length == 3) {
-  //     pathNames[2] = newPath[2];
-  //   }
-  //   if (newPath.length == 4) {
-  //     pathNames[2] = `${newPath[2]} ${newPath[3]}`;
-  //   }
-  // }
+  if (pathNames[2]) {
+    const newPath = pathNames[2].split("-");
+    if (newPath.length === 2) {
+      pathNames[2] = newPath[1];
+    }
+    if (newPath.length == 3) {
+      pathNames[2] = newPath[2];
+    }
+  }
   return (
     <>
       <Breadcrumb style={{ margin: "10px" }}>
