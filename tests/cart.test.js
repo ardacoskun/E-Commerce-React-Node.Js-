@@ -15,14 +15,7 @@ beforeAll(async (done) => {
 describe("Cart Tests", () => {
   test("Should add item to cart for current user", async (done) => {
     const productAttributes = { color: "GUAVAFB", size: "", width: "" };
-    const productVariants = [
-      {
-        variation_values: { color: "GUAVAFB" },
-        price: 38,
-        product_id: "799927757417",
-        orderable: true,
-      },
-    ];
+    const endpoint = "cart";
 
     await request(app)
       .post("/cart/addItem")
@@ -30,8 +23,8 @@ describe("Cart Tests", () => {
       .send({
         productId: "25594785",
         productAttributes,
-        productVariants,
         quantity: "1",
+        endpoint,
       })
       .expect(201);
     done();

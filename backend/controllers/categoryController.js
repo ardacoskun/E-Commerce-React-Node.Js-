@@ -66,13 +66,6 @@ const getSingleProduct = async (req, res) => {
     `${process.env.BASE_URL}products/product_search?id=${productId}&secretKey=${process.env.SECRET_KEY}`
   );
 
-  // if (
-  //   data[0].variants.length == 0 ||
-  //   data[0].variants.variation_attributes == 0
-  // ) {
-  //   throw new OutOfStockError("This product is out of stock.");
-  // }
-
   return await res.status(200).json(data);
 };
 
